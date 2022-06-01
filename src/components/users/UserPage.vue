@@ -2,7 +2,7 @@
   <h1>This is the userdetails page</h1>
 
   <!-- make a card with user object information -->
-  <div class="container">
+  <div v-if="this.user" class="container">
     <!-- User Details Card -->
     <div class="card-wrapper">
       <!-- BG -->
@@ -91,26 +91,53 @@
 </template>
 
 <script>
+import axios from "../../axios-auth";
 export default {
   name: "Login",
   data() {
     return {
-      user: {
-        userId: "1",
-        username: "john12",
-        password: "******",
-        fullname: "John Doe",
-        role: "admin",
-        dayLimit: "2000.00",
-        transactionLimit: "500.00",
-        remainingDayLimit: "2000.00",
-      },
+      // user: {
+      //   userId: "",
+      //   username: "",
+      //   fullname: "",
+      //   roles: [],
+      //   dayLimit: 0.00,
+      //   transactionLimit: 0.00,
+      //   remainingDayLimit: 0.00,
+      // },
+      user: null,
     };
   },
   methods: {
     editUser(id) {
       this.$router.push("/edituser/" + id);
     },
+  },
+  mounted() {
+    // check if token is present in session storage
+    if (sessionStorage.getItem("token")) {
+      // set the axios default header
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + sessionStorage.getItem("token");
+
+      // get user info
+      axios
+        .get("/users/loggedInUser")
+        .then((result) => {
+          this.user = result.data;
+          // store result data in user object
+          // this.user.userId = result.data.userId;
+          // this.user.username = result.data.username;
+          // this.user.fullname = result.data.fullname;
+          // this.user.roles = result.data.roles;
+          // this.user.dayLimit = result.data.dayLimit;
+          // this.user.transactionLimit = result.data.transactionLimit;
+          // this.user.remainingDayLimit = result.data.remainingDayLimit;
+        })
+        .catch((error) => {
+          this.errorMessage = error.result.data.message;
+        });
+    }
   },
 };
 </script>
