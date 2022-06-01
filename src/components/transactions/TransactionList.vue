@@ -2,8 +2,13 @@
     <div class="container">
         <h1>All Transactions</h1>
         <div class="filterDates">
-            <label>Filter transactions: </label>
-            <input type="date" name="filterdate" id="datetime">
+            <label>Enter Start Date: </label>
+            <input type="date" name="startdate" id="datetime">
+        </div>
+
+        <div>
+            <label>Enter End Date: </label>
+            <input type="date" name="enddate" id="datetime">
         </div>
         <br />
         <div class="filterAccount">
