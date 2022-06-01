@@ -14,6 +14,7 @@
                 type="text"
                 class="form-control"
                 v-model="username"
+                @change="showLog()"
               />
             </div>
             <div class="mb-3">
@@ -41,18 +42,35 @@
 </template>
 
 <script>
+import axios from '../axios-auth';
 export default {
   name: "Login",
   data() {
     return {
       username: "",
       password: "",
-      errorMessage: null,
+      errorMessage: "",
     };
   },
   methods: {
+    showLog() {
+      console.log(this.username);
+    },
     // login through a store action
-    login() {},
+    login() {
+      axios.post("/users/login", { 
+        username: this.username, 
+        password: this.password 
+        })
+        .then(result => {
+          axios.defaults.headers.common['Authorization'] = "Bearer" + result.data.token;
+          this.$router.push("/");
+          //alert(result.data.token);
+        })
+        .catch(error => {
+          this.errorMessage = error.result.data.message;
+        });
+    },
     // register through a store action
     register() {},
   },
