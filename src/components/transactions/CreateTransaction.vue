@@ -19,11 +19,9 @@
           <input type="text" class="form-control" />
         </div>
 
-        <div class="input-group mt-4">
-          <button type="button" class="btn btn-primary">Transfer</button>
-          <button type="button" class="btn btn-danger">Cancel</button>
-          <button type="button" class="btn btn-info">List all transactions</button>
-        </div>
+          <input type="button" class="btn btn-primary" value="Transfer Funds"/>
+          <input type="button" class="btn btn-danger" value="Cancel" />
+          <input type="button" class="btn btn-info" value="List Transaction"/>
       </form>
 
     </div>
@@ -36,12 +34,42 @@ export default {
     name: 'AddTransactions',
     data() {
         return {
-            "id": '',
-            "fromAccount": '',
-            "toAccount": '',
-            "amount": '',
-            "timestamp": ''
+            date: '',
+            fromAccount: '',
+            toAccount: '',
+            amount: '',
+            accountType: ''  
         }
+    },
+    onSubmit(e) {
+        e.preventDefault()
+
+        if(!this.date || !this.fromAccount
+        || !this.toAccount || !this.amount
+        || !this.accountType) {
+            alert('One of the field is empty!');
+            return
+        }
+
+        const newTransaction = {
+          date: this.date,
+          fromAccount: this.fromAccount,
+          toAccount: this.toAccount,
+          amount: this.amount,
+          accountType: this.accountType
+        }
+
+        this.$emit('add-transaction', newTransaction)
+    },
+
+    onCancel(e) {
+      e.preventDefault()
+
+      this.date = '',
+      this.fromAccount = '',
+      this.toAccount = '',
+      this.amount = '',
+      this.accountType = ''
     }
 
 }

@@ -18,36 +18,12 @@
                 <th>Amount</th>
                 <th>Account Type</th>
             </tr>
-            <tr>
-                <td>2020-11-23</td>
-                <td>NL07ABNA2847123288</td>
-                <td>NL70INGB2221802675</td>
-                <td>200.00</td>
-                <td>Savings</td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td>NL64ABNA5558975318</td>
-                <td>NL23ABNA7393964341</td>
-                <td>400.00</td>
-                <td>Current</td>
-            </tr>
-
-            <tr>
-                <td>2021-02-02</td>
-                <td>NL23ABNA7393964341</td>
-                <td>NL55RABO4886189474</td>
-                <td>500.00</td>
-                <td>Current</td>
-            </tr>
-
-            <tr>
-                <td>2021-02-02</td>
-                <td>NL52RABO9893570476</td>
-                <td>NL61INGB3175229417</td>
-                <td>700.00</td>
-                <td>Current</td>
+            <tr :key="transaction.id" v-for="transaction in transactions">
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.fromAccount }}</td>
+                <td>{{ transaction.toAccount }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.accountType }}</td>
             </tr>
         </table>
     </div>
@@ -66,7 +42,7 @@ export default {
             {
                 id: 1,
                 date: "2020-07-12",
-                fromAccount: "",
+                fromAccount: "NL80INGB3717231707",
                 toAccount: "NL70INGB2221802675",
                 amount: 500.00,
                 accountType: "current"  
@@ -74,7 +50,19 @@ export default {
             {
                 id: 2,
                 date: "2020-07-09",
-                fromAccount: ""
+                fromAccount: "NL64ABNA5558975318",
+                toAccount: "NL23ABNA7393964341",
+                amount: 200.00,
+                accountType: "savings"
+
+            },
+            {
+                id: 3,
+                date: "2020-07-09",
+                fromAccount: "NL52RABO9893570476",
+                toAccount: "NL61INGB3175229417",
+                amount: 200.00,
+                accountType: "savings"
             }
         ]
     }
