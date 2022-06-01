@@ -1,55 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap");
 
-body {
+html, body {
   font-family: "Quicksand", sans-serif;
 }
-
-h1,
-h2 {
-  font-weight: 700;
+.card-wrapper {
+  background-color: rgb(200, 238, 254);
+  width: 500px;
+  padding-bottom: 20px;
+  border: 1px solid #D8DDE5;
+  border-radius: 10px;
+  box-shadow: #d8dde5 0px 0px 2px;
+  overflow: hidden;
+  margin:0 auto
 }
 
-/* Product cards */
-
-.product-card {
-  box-shadow: 1px 1px 4px 0 rgba(220, 192, 10, 0.16);
+.card-wrapper__bg {
+  height: 100px;
+  background: #b3d8f2 url("http://ringvemedia.com/server//bg.jpg") no-repeat;
+  background-position: 100% 100%;
+  position: relative;
+  
 }
 
-.product-card img {
-  margin: auto;
-  display: block;
-  max-width: 115px;
-  max-height: 100px;
-  margin-bottom: 10px;
+.card-wrapper__cover-bg {
+  height: 100%;
+  text-align: center;
 }
 
-@media screen and (max-width: 768px) {
-  .product-card img {
-    display: block;
-    width: 85px;
-    margin-right: 10px;
-    margin-bottom: 0px;
-    height: auto;
-    float: left;
-  }
+.card-wrapper__profile-pic {
+  position: absolute;
+  width: 100px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 100px;
+  height: 100px;
+  left: 50%;
+  margin-left: -50px;
+  top: 30px;
+  overflow: hidden;
+  padding: 10px;
 }
 
-.price {
-  font-size: 1.5rem;
-  font-weight: 700;
+
+.text-center {
+  text-align: center;
 }
 
-.product-card p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-.product-card small {
-  color: #b3b3b3;
-  font-size: 0.8rem;
+.card-wrapper__details {
+  padding-top: 65px;
+  padding-bottom: 20px;
 }
 
-/* Social icons */
+.card-wrapper__user-name a {
+  color: #1085E0;
+  text-decoration: none;
+  font-size: 26px;
+}
 
-.fa-brands:hover {
-  color: #929292;
+.card-wrapper__user-detail {
+  font-size: 16px;
+  color: #707070;
+}
+
+.card-wrapper__user-contact-info {
+  padding-top: 20px;
+}
+.card-wrapper__user-contact-info-label {
+  font-size: 16px;
+  color: #707070;
+}
+.card-wrapper__user-contact-info-value,
+.card-wrapper__user-contact-info-value a{
+  font-size: 18px;
+  color: #000;
+  text-decoration: none;
+}
+.center {
+  /* center the div and elements inside */
+  margin: 0 auto;
 }

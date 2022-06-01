@@ -13,6 +13,21 @@
             >Create Transactions</router-link
           >
         </li>
+        <li class="nav-item">
+            <router-link to="/profile" class="nav-link" active-class="active"
+              >Profile</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link" active-class="active"
+              >Login</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/edituser/1" class="nav-link" active-class="active"
+              >Edit User</router-link
+            >
+          </li>
       </ul>
     </div>
   </nav>

@@ -4,16 +4,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Account from './components/accounts/Account.vue'
 import CreateAccount from './components/accounts/CreateAccount.vue';
-// import ProductList from './components/products/ProductList.vue';
-// import CreateProduct from './components/products/CreateProduct.vue';
-// import EditProduct from './components/products/EditProduct.vue';
+import Login from "./components/Login.vue";
+import UserPage from "./components/users/UserPage.vue";
+import EditUserDetails from "./components/users/EditUserDetails.vue";
 
 
 const routes = [
     { path: '/', component: Account },
     { path: '/createaccount', component: CreateAccount },
-    // { path: '/createproduct', component: CreateProduct },
-    // { path: '/editproduct/:id', component: EditProduct, props: true  }
+    { path: "/login", component: Login },
+    { path: "/profile", component: UserPage },
+    { path: '/edituser/:id', component: EditUserDetails, props: true  }
 ];
 
 const router = createRouter({
