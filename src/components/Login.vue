@@ -14,6 +14,7 @@
                 type="text"
                 class="form-control"
                 v-model="username"
+                @change="showLog()"
               />
             </div>
             <div class="mb-3">
@@ -26,10 +27,18 @@
               />
             </div>
             <div class="">
-              <button type="button" @click="login()" class="btn btn-outline-primary mr-1">
+              <button
+                type="button"
+                @click="login()"
+                class="btn btn-outline-primary mr-1"
+              >
                 Login
               </button>
-              <button type="button" @click="register()" class="btn btn-outline-secondary">
+              <button
+                type="button"
+                @click="register()"
+                class="btn btn-outline-secondary"
+              >
                 Register
               </button>
             </div>
@@ -41,20 +50,42 @@
 </template>
 
 <script>
+import axios from "../axios-auth";
 export default {
   name: "Login",
   data() {
     return {
       username: "",
       password: "",
-      errorMessage: null,
+      errorMessage: "",
+      user: null,
     };
   },
   methods: {
+    showLog() {
+      console.log(this.username);
+    },
     // login through a store action
-    login() {},
+    login() {
+      axios
+        .post("/users/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then((result) => {
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer" + result.data.token;
+          this.$router.push("/profile");
+          //alert(result.data.token);
+        })
+        .catch((error) => {
+          this.errorMessage = error.result.data.message;
+        });
+    },
     // register through a store action
     register() {},
+  },
+  mounted() {
   },
 };
 </script>
