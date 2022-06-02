@@ -15,7 +15,7 @@
   <br>
   <h1>Transactions</h1> 
   <label for="filter">Filter by: </label>
-  <select>
+  <v-select :value="$store.myValue" @input="setSelected">
     <option selected>Filter by</option>
     <option value="1">date</option>
     <option value="2">amount</option>
@@ -45,6 +45,10 @@ export default {
         return {
             transactions: []
         }
+    },
+    setSelected(value)
+    {
+        //  trigger a mutation, or dispatch an action  
     },
     created() {
         this.transactions = [
