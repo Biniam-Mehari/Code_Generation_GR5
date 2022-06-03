@@ -52,7 +52,9 @@ export default {
   },
   methods: {
     // login through a store action
-    login() {},
+    login() {
+      
+    },
     // register through a store action
     register() {},
   },
