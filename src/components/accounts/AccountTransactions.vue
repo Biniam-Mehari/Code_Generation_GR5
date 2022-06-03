@@ -1,10 +1,11 @@
 <template>
-  <ol class="list-group list-group-numbered">
+<div class="container">
+<ol class="list-group list-group-numbered">
     <li
       class="list-group-item d-flex justify-content-between align-items-start"
     >
       <div class="ms-2 me-auto">
-        <div class="fw-bold" @click="this.$router.push('/createaccount')">
+        <div class="fw-bold">
           Current account
         </div>
         NL78INHO123456789
@@ -14,12 +15,33 @@
   </ol>
   <br>
   <h1>Transactions</h1> 
-  <label for="filter">Filter by: </label>
-  <select>
-    <option selected>Filter by</option>
-    <option value="1">date</option>
-    <option value="2">amount</option>
-  </select>
+  <form action="">
+  <label>Start date: </label>
+  <div class="divider"/>
+  <input type="date">
+  <div class="divider"/>
+  <div class="divider"/>
+  <label>Start date: </label>
+  <div class="divider"/>
+  <input type="date">
+  <div class="divider"/>
+  <div class="divider"/>
+  <button type="button" class="btn btn-success">Search</button>
+  </form>
+<br>
+  <form action="">
+<label>Amount: </label>
+  <div class="divider"/>
+  <input type="text">
+  <div class="divider"/>
+  <div class="divider"/>
+  <label>based on: </label>
+  <div class="divider"/>
+  <input type="text" placeholder="<, = , >">
+  <div class="divider"/>
+  <button type="button" class="btn btn-success">Search</button>
+  </form>
+  <br>
   <table>
             <tr>
                 <th>Datetime</th>
@@ -36,6 +58,8 @@
                 <td>{{ transaction.accountType }}</td>
             </tr>
         </table>
+</div>
+  
 </template>
 
 <script>
@@ -45,6 +69,10 @@ export default {
         return {
             transactions: []
         }
+    },
+    setSelected()
+    {
+        //  trigger a mutation, or dispatch an action  
     },
     created() {
         this.transactions = [
@@ -92,5 +120,11 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.divider{
+    width:8px;
+    height:auto;
+    display:inline-block;
 }
 </style>
