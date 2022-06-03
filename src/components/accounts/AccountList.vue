@@ -1,14 +1,18 @@
 <template>
+<div class="container">
   <div class="position-relative">
     <button
       type="button"
       class="btn btn-primary"
-      @click="this.$router.push('/createaccount')"
-    >
+      @click="this.$router.push('/createaccount')">
       create new account
     </button>
+   <div>
+     <label>Total balance:</label>
+      <label>100000</label>
+   </div>
   </div>
-
+ <br>
   <ol class="list-group list-group-numbered">
     <li
       class="list-group-item d-flex justify-content-between align-items-start" v-for="account in accounts" :key="account.accountType">
@@ -24,6 +28,7 @@
     <account-info  :account="accounts" />
     </li>
   </ol>
+  </div>
 </template>
 
 <script>
