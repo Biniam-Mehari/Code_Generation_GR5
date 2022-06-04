@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from "../axios-auth";
+//import axios from "../axios-auth";
 export default {
   name: "Login",
   data() {
@@ -58,34 +58,32 @@ export default {
       username: "",
       password: "",
       errorMessage: "",
-      user: null,
     };
   },
   methods: {
     showLog() {
       console.log(this.username);
     },
-    // login through a store action
     login() {
-      axios
-        .post("/users/login", {
+      this.$store
+        .dispatch("login", {
           username: this.username,
           password: this.password,
         })
-        .then((result) => {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer" + result.data.token;
+        .then(() => {
+          this.$store.dispatch("setLogin");
           this.$router.push("/profile");
-          //alert(result.data.token);
         })
         .catch((error) => {
-          this.errorMessage = error.result.data.message;
+          this.errorMessage = "invalid username or password";
+          console.log(error);
         });
     },
     // register through a store action
     register() {},
   },
   mounted() {
+    // nothing to do here
   },
 };
 </script>

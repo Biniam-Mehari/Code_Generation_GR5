@@ -2,7 +2,7 @@
   <h1>This is the userdetails page</h1>
 
   <!-- make a card with user object information -->
-  <div v-if="this.user" class="container">
+  <div class="container">
     <!-- User Details Card -->
     <div class="card-wrapper">
       <!-- BG -->
@@ -16,10 +16,10 @@
       <div class="card-wrapper__details">
         <!-- First Fold -->
         <div class="card-wrapper__user-details">
-          <div class="text-center card-wrapper__user-name">
+          <div v-if="this.$store.state.loggedInUser" class="text-center card-wrapper__user-name">
             {{ user.fullname }}
           </div>
-          <div
+          <div v-if="this.$store.state.loggedInUser"
             class="
               text-center
               card-wrapper__designation card-wrapper__user-detail
@@ -38,7 +38,7 @@
             "
           >
             <div class="card-wrapper__user-contact-info-label">Username</div>
-            <div class="card-wrapper__user-contact-info-value">
+            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
               {{ user.username }}
             </div>
           </div>
@@ -50,7 +50,7 @@
             "
           >
             <div class="card-wrapper__user-contact-info-label">Day Limit</div>
-            <div class="card-wrapper__user-contact-info-value">
+            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
               {{ user.dayLimit }}
             </div>
           </div>
@@ -63,7 +63,7 @@
             <div class="card-wrapper__user-contact-info-label">
               Transaction Limit
             </div>
-            <div class="card-wrapper__user-contact-info-value">
+            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
               {{ user.transactionLimit }}
             </div>
           </div>
@@ -76,14 +76,14 @@
             <div class="card-wrapper__user-contact-info-label">
               Remaining Day Limit
             </div>
-            <div class="card-wrapper__user-contact-info-value">
+            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
               {{ user.remainingDayLimit }}
             </div>
           </div>
         </div>
       </div>
       <!-- create edit button -->
-      <button type="button" class="btn btn-primary center" @click="editUser(user.userId)">
+      <button type="button" class="btn btn-primary position-absolute start-50 translate-middle my-1" @click="editUser(user.userId)">
         Edit
       </button>
     </div>
@@ -91,21 +91,11 @@
 </template>
 
 <script>
-import axios from "../../axios-auth";
+//import axios from "../../axios-auth";
 export default {
   name: "Login",
   data() {
     return {
-      // user: {
-      //   userId: "",
-      //   username: "",
-      //   fullname: "",
-      //   roles: [],
-      //   dayLimit: 0.00,
-      //   transactionLimit: 0.00,
-      //   remainingDayLimit: 0.00,
-      // },
-      user: null,
     };
   },
   methods: {
@@ -114,29 +104,9 @@ export default {
     },
   },
   mounted() {
-    // check if token is present in session storage
-    if (sessionStorage.getItem("token")) {
-      // set the axios default header
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + sessionStorage.getItem("token");
-
-      // get user info
-      axios
-        .get("/users/loggedInUser")
-        .then((result) => {
-          this.user = result.data;
-          // store result data in user object
-          // this.user.userId = result.data.userId;
-          // this.user.username = result.data.username;
-          // this.user.fullname = result.data.fullname;
-          // this.user.roles = result.data.roles;
-          // this.user.dayLimit = result.data.dayLimit;
-          // this.user.transactionLimit = result.data.transactionLimit;
-          // this.user.remainingDayLimit = result.data.remainingDayLimit;
-        })
-        .catch((error) => {
-          this.errorMessage = error.result.data.message;
-        });
+    // if user is null go to login page
+    if (this.$store.state.token == null) {
+      this.$router.push("/login");
     }
   },
 };
@@ -145,5 +115,8 @@ export default {
 <style scoped>
 h1 {
   text-align: center;
+}
+button {
+  margin: 0 auto;
 }
 </style>

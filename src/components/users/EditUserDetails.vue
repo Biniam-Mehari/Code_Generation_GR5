@@ -76,7 +76,7 @@
 export default {
   name: "EditUserDetails",
   props: {
-    //id: Number,
+    id: Number,
   },
   data() {
     return {
