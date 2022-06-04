@@ -9,10 +9,7 @@ export default {
   name: 'App',
   components: {
     navigation
-  },
-  created() {
-    this.$store.dispatch('autologin');
-  },
+  }
 }
 </script>
 
