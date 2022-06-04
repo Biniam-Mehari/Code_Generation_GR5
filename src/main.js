@@ -16,7 +16,7 @@ const routes = [
     { path: '/createaccount', component: CreateAccount },
     { path: "/login", component: Login },
     { path: "/profile", component: UserPage },
-    { path: "/accounttransaction/:iban", component: AccountTransactions, props:true },
+    { path: "/accounttransaction/:iban", component: AccountTransactions, props: true },
     { path: '/edituser/:id', component: EditUserDetails, props: true  }
 ];
 

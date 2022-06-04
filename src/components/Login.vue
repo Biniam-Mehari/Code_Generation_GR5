@@ -72,7 +72,7 @@ export default {
         })
         .then(() => {
           this.$store.dispatch("setLogin");
-          this.$router.push("/profile");
+          this.$router.push("/");
         })
         .catch((error) => {
           this.errorMessage = "invalid username or password";

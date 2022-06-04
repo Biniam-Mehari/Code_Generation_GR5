@@ -47,6 +47,9 @@ export default {
   components: {
     AccountInfo,
   },
+   props: {
+    iban: String,
+  },
   data() {
     return {
       accounts: [

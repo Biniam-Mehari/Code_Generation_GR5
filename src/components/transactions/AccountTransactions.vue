@@ -6,7 +6,7 @@
       >
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ account.accountType }}</div>
-          {{ this.IBAN }}
+          {{  account.IBAN }}
         </div>
         <span class="badge bg-primary fs-5 w-auto p-3" style="width: 7rem">{{
           account.currentBalance
@@ -18,12 +18,12 @@
     <form action="">
       <label>Start date: </label>
       <div class="divider" />
-      <input type="date" />
+      <input type="date" v-model="startDate" />
       <div class="divider" />
       <div class="divider" />
       <label>Start date: </label>
       <div class="divider" />
-      <input type="date" />
+      <input type="date" v-model="endDate"/>
       <div class="divider" />
       <div class="divider" />
       <button type="button" class="btn btn-success" @click="filtterByDate()">
@@ -71,35 +71,55 @@ import axios from "../../axios-auth";
 export default {
   name: "Transactions",
     props: {
-    IBAN: String,
+    iban: String,
   },
   data() {
     return {
       transactions: [],
       account: [],
       errorMessage: null,
+      enddate: Date.now.toString(),
+      startdate: Date.now.toString(),
 
-      startdate:"2022-06-04"
     };
   },
   
 
   methods: {
-    filtterByDate() {},
-    filtterByAmount() {},
+    filtterByDate() {
+       axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+    axios
+      .get("accounts/"+this.account.IBAN+"/transactions?startDate=" + this.startdate.toString() + "&endDate="+this.enddate.toString()+"&skip=3&limit=3")
+      .then((res) => {
+        this.account = res.data;
+      })
+      .catch((error) => console.log(error));
+    },
+    filtterByAmount() {
+       axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+    axios
+      .get("/accounts/NL21INHO0123400001/transactions/byamount?amount=1&operator=%3E&skip=0&limit=1")
+      .then((res) => {
+        this.transactions = res.data;
+      })
+      .catch((error) => console.log(error));
+    },
   },
 
   mounted() {
-    // axios
-    //   .get("/accounts/1")
-    //   .then((res) => {
-    //     this.account = res.data;
-    //   })
-    //   .catch((error) => console.log(error));
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("token");
     axios
-      .get("/accounts/NL21INHO0123400001/transactions?startDate="+this.startdate+"&endDate=2024-06-04&skip=0&limit=5")
+      .get("/accounts/"+this.iban)
+      .then((res) => {
+        this.account = res.data;
+      })
+      .catch((error) => console.log(error));
+    
+    axios
+      .get("/accounts/"+this.iban+"/transactions?startDate=2022-04-03&endDate=2025-04-03&skip=0&limit=5")
       .then((res) => {
         this.transactions = res.data;
       })
