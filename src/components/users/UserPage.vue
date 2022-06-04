@@ -111,11 +111,6 @@ export default {
     },
   },
   mounted() {
-    // if user is null go to login page
-    // if (this.$store.state.token == null) {
-    //   this.$router.push("/login");
-    // }
-    
   },
 };
 </script>

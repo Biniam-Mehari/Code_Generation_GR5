@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <router-link to="/" class="nav-link" active-class="active"
+          <router-link v-if="this.$store.getters.isAuthenticated" to="/" class="nav-link" active-class="active"
             >My Accounts</router-link>
         </li>      
         <li class="nav-item">
-          <router-link to="dc" class="nav-link" active-class="active"
+          <router-link v-if="this.$store.getters.isAuthenticated" to="dc" class="nav-link" active-class="active"
             >Create Transactions</router-link
           >
         </li>
@@ -26,7 +26,7 @@
               >Logout</router-link
             >
           </li>
-          <li class="nav-item">
+          <li v-if="this.$store.getters.isAuthenticated" class="nav-item">
             <router-link to="/edituser/1" class="nav-link" active-class="active"
               >Edit User</router-link
             >

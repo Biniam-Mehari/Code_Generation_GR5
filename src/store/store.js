@@ -69,6 +69,10 @@ const store = createStore({
           token: token,
         });
       }
+      else {
+        // if not logged in go to login page
+        this.router.push("/login");
+      }
     },
     logout({ commit }) {
       // set token in store to null
