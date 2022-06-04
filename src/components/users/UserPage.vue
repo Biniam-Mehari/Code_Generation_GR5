@@ -1,8 +1,6 @@
 <template>
-  <h1>This is the userdetails page</h1>
-
   <!-- make a card with user object information -->
-  <div class="container">
+  <div v-if="this.$store.getters.isAuthenticated" class="container">
     <!-- User Details Card -->
     <div class="card-wrapper">
       <!-- BG -->
@@ -88,6 +86,15 @@
       </button>
     </div>
   </div>
+  <!-- v-else -->
+  <div v-else class="container">
+    <div class="alert alert-info">
+      <h4>You are not logged in</h4>
+      <p>
+        Please login to view your details.
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -105,10 +112,10 @@ export default {
   },
   mounted() {
     // if user is null go to login page
-    if (this.$store.state.token == null) {
-      this.$router.push("/login");
-    }
-    this.$store.dispatch("setLogin");
+    // if (this.$store.state.token == null) {
+    //   this.$router.push("/login");
+    // }
+    
   },
 };
 </script>
