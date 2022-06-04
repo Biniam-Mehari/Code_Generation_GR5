@@ -5,7 +5,6 @@ import store from './store/store'
 
 import AccountList from './components/accounts/AccountList.vue'
 import CreateAccount from './components/accounts/CreateAccount.vue';
-//import AccountTransactions from './components/accounts/AccountTransactions.vue';
 import AccountTransactions from './components/transactions/AccountTransactions.vue';
 import Login from "./components/Login.vue";
 import UserPage from "./components/users/UserPage.vue";
@@ -17,7 +16,7 @@ const routes = [
     { path: '/createaccount', component: CreateAccount },
     { path: "/login", component: Login },
     { path: "/profile", component: UserPage },
-    { path: "/accounttransaction/:iban", component: AccountTransactions },
+    { path: "/accounttransaction/:iban", component: AccountTransactions, props:true },
     { path: '/edituser/:id', component: EditUserDetails, props: true  }
 ];
 

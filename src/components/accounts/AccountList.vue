@@ -24,14 +24,14 @@
         <div class="ms-2 me-auto">
           <div
             class="fw-bold"
-            @click="this.$router.push('/accounttransaction/' + account.iban)"
+            @click="showTransaction(account.IBAN)"
           >
             {{ account.accountType }}
           </div>
-          {{ account.iban }}
+          {{ account.IBAN }}
         </div>
         <span class="badge bg-primary fs-5 w-auto p-3" style="width: 7rem"
-          >{{ account.currency }} {{ account.balance }}</span
+          >{{ account.currency }} {{ account.currentBalance }}</span
         >
         <account-info :account="accounts" />
       </li>
@@ -50,14 +50,6 @@ export default {
   data() {
     return {
       accounts: [
-        {
-          absoluteLimit: null,
-          accountId: 0,
-          accountType: null,
-          currentBalance: 0,
-          iban: null,
-          userId: null,
-        },
       ],
 
       totalBalance: null,
@@ -65,9 +57,12 @@ export default {
   },
 
   methods: {
-    getTransaction(iban) {
-      this.$router.push("/accounttransaction/" + iban);
-    },
+    // getTransaction(iban) {
+    //   this.$router.push("/accounttransaction/" + iban);
+    // },
+    showTransaction(iban){
+     this.$router.push('/accounttransaction/' + iban)
+    }
   },
   mounted() {
     axios.defaults.headers.common["Authorization"] =
@@ -76,7 +71,7 @@ export default {
       .get("/users/" + this.$store.state.loggedInUser.userId + "/accounts")
       .then((res) => {
         this.accounts = res.data;
-        this.accounts.accountId = res.data.accountId;
+       // this.accounts.accountId = res.data.accountId;
         console.log( res.data);
       })
       .catch((error) => console.log(error));
@@ -85,6 +80,7 @@ export default {
       .get("/users/" + this.$store.state.loggedInUser.userId + "/totalBalance")
       .then((res) => {
         this.totalBalance = res.data.totalBalance;
+         console.log( res.data);
       })
       .catch((error) => console.log(error));
   },
