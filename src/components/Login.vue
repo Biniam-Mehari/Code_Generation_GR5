@@ -71,7 +71,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$store.dispatch("setLogin");
+          // this.$store.dispatch("setLogin");
           this.$router.push("/profile");
         })
         .catch((error) => {

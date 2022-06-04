@@ -5,7 +5,15 @@ const store = createStore({
   state() {
     return {
       token: null,
-      loggedInUser: null,
+      loggedInUser: {
+        userId: 0,
+        username: "",
+        fullname: "",
+        roles: [],
+        dayLimit: 0.0,
+        transactionLimit: 0.0,
+        remainingDayLimit: 0.0,
+      },
       errorMessage: "",
     };
   },
@@ -19,21 +27,29 @@ const store = createStore({
   },
   mutations: {
     removeToken(state) {
-        state.token = null;
+      state.token = null;
     },
     setToken(state, parameters) {
       state.token = parameters.token;
     },
     setLoggedInUser(state, parameters) {
-      state.loggedInUser = parameters.data;
+      state.loggedInUser.userId = parameters.userId;
+      state.loggedInUser.username = parameters.username;
+      state.loggedInUser.fullname = parameters.fullname;
+      state.loggedInUser.roles = parameters.roles;
+      state.loggedInUser.dayLimit = parameters.dayLimit;
+      state.loggedInUser.transactionLimit = parameters.transactionLimit;
+      state.loggedInUser.remainingDayLimit = parameters.remainingDayLimit;
     },
     logout(state) {
-        state.jwt = null;
-        state.username = null;
-    }
+      state.jwt = null;
+      state.username = null;
+    },
   },
   actions: {
     setLogin({ commit }) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
       axios
         .get("/users/loggedInUser")
         .then((response) => {
@@ -55,11 +71,11 @@ const store = createStore({
       }
     },
     logout({ commit }) {
-        // set token in store to null
-        commit("removeToken");
-        axios.defaults.headers.common["Authorization"] = "";
-        localStorage.clear();
-        commit('logout');
+      // set token in store to null
+      commit("removeToken");
+      axios.defaults.headers.common["Authorization"] = "";
+      localStorage.clear();
+      commit("logout");
     },
     login({ commit }, parameters) {
       return new Promise((resolve, reject) => {

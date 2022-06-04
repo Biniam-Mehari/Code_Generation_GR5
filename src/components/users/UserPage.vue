@@ -17,7 +17,7 @@
         <!-- First Fold -->
         <div class="card-wrapper__user-details">
           <div v-if="this.$store.state.loggedInUser" class="text-center card-wrapper__user-name">
-            {{ user.fullname }}
+            {{ this.$store.state.loggedInUser.fullname }}
           </div>
           <div v-if="this.$store.state.loggedInUser"
             class="
@@ -25,7 +25,7 @@
               card-wrapper__designation card-wrapper__user-detail
             "
           >
-            {{ user.role }}
+            {{ this.$store.state.loggedInUser.roles }}
           </div>
         </div>
         <!-- Second Fold -->
@@ -39,7 +39,7 @@
           >
             <div class="card-wrapper__user-contact-info-label">Username</div>
             <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
-              {{ user.username }}
+              {{ this.$store.state.loggedInUser.username }}
             </div>
           </div>
           <!-- phone details -->
@@ -51,7 +51,7 @@
           >
             <div class="card-wrapper__user-contact-info-label">Day Limit</div>
             <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
-              {{ user.dayLimit }}
+              {{ this.$store.state.loggedInUser.dayLimit }}
             </div>
           </div>
           <div
@@ -64,7 +64,7 @@
               Transaction Limit
             </div>
             <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
-              {{ user.transactionLimit }}
+              {{ this.$store.state.loggedInUser.transactionLimit }}
             </div>
           </div>
           <div
@@ -77,13 +77,13 @@
               Remaining Day Limit
             </div>
             <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
-              {{ user.remainingDayLimit }}
+              {{ this.$store.state.loggedInUser.remainingDayLimit }}
             </div>
           </div>
         </div>
       </div>
       <!-- create edit button -->
-      <button type="button" class="btn btn-primary position-absolute start-50 translate-middle my-1" @click="editUser(user.userId)">
+      <button type="button" class="btn btn-primary position-absolute start-50 translate-middle my-1" @click="editUser(this.$store.state.loggedInUser.userId)">
         Edit
       </button>
     </div>
@@ -108,6 +108,7 @@ export default {
     if (this.$store.state.token == null) {
       this.$router.push("/login");
     }
+    this.$store.dispatch("setLogin");
   },
 };
 </script>
