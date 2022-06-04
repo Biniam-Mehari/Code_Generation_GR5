@@ -33,7 +33,6 @@
 
 <script>
 import AccountInfo from "./AccountList.vue";
-import axios from "../axios-auth";
 export default {
   name: "AccountList",
   components: {
