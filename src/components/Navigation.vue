@@ -3,12 +3,10 @@
     <div class="container-fluid">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <!-- Add a router link to the homepage (don't use the a tag!) -->
           <router-link to="/" class="nav-link" active-class="active"
             >My Accounts</router-link>
         </li>      
         <li class="nav-item">
-          <!-- add a router link to the products page (don't use the a tag!) -->
           <router-link to="dc" class="nav-link" active-class="active"
             >Create Transactions</router-link
           >
@@ -19,8 +17,13 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link" active-class="active"
+            <router-link v-if="!this.$store.getters.isAuthenticated" to="/login" class="nav-link" active-class="active"
               >Login</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="this.$store.getters.isAuthenticated">
+            <router-link to="/login" @click="this.$store.dispatch('logout')" class="nav-link"
+              >Logout</router-link
             >
           </li>
           <li class="nav-item">
