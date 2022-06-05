@@ -7,17 +7,21 @@
 
         <div class="input-group mb-3">
           <span class="input-group-text">Username</span>
-          <input type="text" class="form-control" v-model="product.name" />
+          <input type="text" class="form-control" v-model="changedUser.username" />
         </div>
 
         <div class="input-group mb-3">
           <span class="input-group-text">Fullname</span>
-          <input type="number" class="form-control" v-model="user.fullname" />
+          <input
+            type="text"
+            class="form-control"
+            v-model="changedUser.fullname"
+          />
         </div>
 
         <div class="input-group mb-3">
           <span class="input-group-text">role</span>
-          <select class="form-control" v-model="user.role">
+          <select class="form-control">
             <option value="user">user</option>
             <option value="admin">admin</option>
           </select>
@@ -25,7 +29,11 @@
 
         <div class="input-group mb-3">
           <span class="input-group-text">Day Limit</span>
-          <input type="text" class="form-control" v-model="product.image" />
+          <input
+            type="text"
+            class="form-control"
+            v-model="changedUser.dayLimit"
+          />
         </div>
 
         <div class="input-group mb-3">
@@ -33,7 +41,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="user.transactionLimit"
+            v-model="changedUser.transactionLimit"
           />
         </div>
 
@@ -42,20 +50,16 @@
           <input
             type="text"
             class="form-control"
-            v-model="user.remainingDayLimit"
+            v-model="changedUser.remainingDayLimit"
           />
         </div>
 
         <div class="input-group mt-4">
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="editUser"
-          >
+          <button type="button" class="btn btn-primary" @click="editUser">
             Save changes
           </button>
 
-          <button class="btn btn-danger" @click="deleteUser(user.id)">
+          <button class="btn btn-danger" @click="deleteUser(changedUser.userId)">
             Delete
           </button>
 
@@ -73,56 +77,65 @@
 </template>
 
 <script>
+import axios from "../../axios-auth";
 export default {
   name: "EditUserDetails",
-  props: {
-    id: Number,
-  },
   data() {
     return {
-      user: {
-        userId: "1",
-        username: "john12",
-        password: "******",
-        fullname: "John Doe",
-        role: "admin",
-        dayLimit: "2000.00",
-        transactionLimit: "500.00",
-        remainingDayLimit: "2000.00",
+      id: "",
+      changedUser: {
+        userId: 0,
+        username: "",
+        fullname: "",
+        roles: [],
+        dayLimit: 0.0,
+        transactionLimit: 0.0,
+        remainingDayLimit: 0.0,
       },
     };
   },
   methods: {
     editUser() {
-    //   axios
-    //     .put("/users/" + this.user.id, this.user)
-    //     .then((result) => {
-    //       console.log(result.data);
-    //       this.$refs.form.reset();
-    //       this.$router.push("/profile");
-    //     })
-    //     .catch((error) => console.log(error));
+      //   axios
+      //     .put("/users/" + this.user.id, this.user)
+      //     .then((result) => {
+      //       console.log(result.data);
+      //       this.$refs.form.reset();
+      //       this.$router.push("/profile");
+      //     })
+      //     .catch((error) => console.log(error));
     },
     deleteUser(id) {
-        String(id);
-    //   axios
-    //     .delete("/products/" + id)
-    //     .then((result) => {
-    //       console.log(result);
-    //       this.$emit("update");
-    //     })
-    //     .catch((error) => console.log(error));
+      String(id);
+      //   axios
+      //     .delete("/products/" + id)
+      //     .then((result) => {
+      //       console.log(result);
+      //       this.$emit("update");
+      //     })
+      //     .catch((error) => console.log(error));
       // use axios to delete the product
     },
   },
-  mounted() {
-    // axios
-    //   .get("/users/" + this.id)
-    //   .then((result) => {
-    //     console.log(result);
-    //     this.user = result.data;
-    //   })
-    //   .catch((error) => console.log(error));
+  created() {
+    this.id = this.$route.params.id;
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+    axios
+      .get("/users/" + this.id)
+      .then((response) => {
+        console.log(response.data);
+        this.changedUser.userId = response.data.userId;
+        this.changedUser.username = response.data.username;
+        this.changedUser.fullname = response.data.fullname;
+        this.changedUser.roles = response.data.roles;
+        this.changedUser.dayLimit = response.data.dayLimit;
+        this.changedUser.transactionLimit = response.data.transactionLimit;
+        this.changedUser.remainingDayLimit = response.data.remainingDayLimit;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
