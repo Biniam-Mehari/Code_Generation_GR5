@@ -22,7 +22,7 @@ const store = createStore({
       return state.token != null;
     },
     isAdmin(state) {
-      return state.loggedInUser.roles.include("ROLE_ADMIN");
+      return state.loggedInUser.roles.includes("ROLE_ADMIN") == true;
     }
   },
   mutations: {
