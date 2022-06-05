@@ -4,7 +4,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
           <router-link v-if="this.$store.getters.isAuthenticated" to="/" class="nav-link" active-class="active"
-            >My Accounts</router-link>
+            >Accounts</router-link>
         </li>      
         <li class="nav-item">
           <router-link v-if="this.$store.getters.isAuthenticated" to="dc" class="nav-link" active-class="active"

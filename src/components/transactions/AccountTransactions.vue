@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <button type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/')">
+        Create transaction
+      </button>
+     <br> <br>
     <ol class="list-group list-group-numbered">
       <li
         class="list-group-item d-flex justify-content-between align-items-start"
@@ -14,7 +18,7 @@
       </li>
     </ol>
     <br />
-    <h1>Transactions</h1>
+    <h1>Filter Transactions</h1>
     <form action="">
       <label>Start date: </label>
       <div class="divider" />
@@ -26,25 +30,66 @@
       <input type="date" v-model="endDate"/>
       <div class="divider" />
       <div class="divider" />
+      <input type="text" v-model="skip" placeholder="skip"/>
+      <div class="divider" />
+      <div class="divider" />
+      <input type="text" v-model="limit" placeholder="limit"/>
+      <div class="divider" />
+      <div class="divider" />
       <button type="button" class="btn btn-success" @click="filtterByDate()">
         Search
       </button>
     </form>
     <br />
-    <form action="">
+   
       <label>Amount: </label>
       <div class="divider" />
-      <input type="text" />
+      <input type="text"  v-model="amount" />
       <div class="divider" />
       <div class="divider" />
       <label>based on: </label>
       <div class="divider" />
-      <input type="text" placeholder="<, = , >" />
+       <div class="divider" />
+      <select v-model="oprator">
+        <option v-for="op in operators" :key="op">{{ op }}</option>
+      </select>
+      <div class="divider" />
+      <div class="divider" />
+      <input type="text" v-model="skip" placeholder="skip"/>
+      <div class="divider" />
+      <div class="divider" />
+      <input type="text" v-model="limit" placeholder="limit"/>
+      <div class="divider" />
       <div class="divider" />
       <button type="button" class="btn btn-success" @click="filtterByAmount()">
         Search
       </button>
+   <br />
+   <br>
+   <form action="">
+      <label>IBAN: </label>
+      <div class="divider" />
+      <input type="text" v-model="ibanToFilter" />
+      <div class="divider" />
+      <div class="divider" />
+      <label>from/to: </label>
+      <div class="divider" />
+      <select v-model="directionOfTransaction">
+        <option v-for="dir in directions" :key="dir">{{ dir }}</option>
+      </select>
+      <div class="divider" />
+      <div class="divider" />
+      <input type="text" v-model="skip" placeholder="skip"/>
+      <div class="divider" />
+      <div class="divider" />
+      <input type="text" v-model="limit" placeholder="limit"/>
+      <div class="divider" />
+      <div class="divider" />
+      <button type="button" class="btn btn-success" @click="filtterByIban()">
+        Search
+      </button>
     </form>
+    <br>
     <label>{{ errorMessage }}</label>
     <br />
     <table>
@@ -63,6 +108,11 @@
         <td>{{ transaction.transactionType }}</td>
       </tr>
     </table>
+
+    <div class="divider" />
+      <button type="button" class="btn btn-success" @click="showMore()">
+        Show more
+      </button>
   </div>
 </template>
 
@@ -80,6 +130,14 @@ export default {
       errorMessage: null,
       enddate: Date.now.toString(),
       startdate: Date.now.toString(),
+      amount:0,
+      operators: ['<','=','>'],
+      oprator:"",
+      directions:['from','to','all'],
+      directionOfTransaction:null,
+      ibanToFilter:null,
+      skip:null,
+      limit:null,
 
     };
   },
@@ -96,16 +154,22 @@ export default {
       })
       .catch((error) => console.log(error));
     },
+
     filtterByAmount() {
        axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("token");
     axios
-      .get("/accounts/NL21INHO0123400001/transactions/byamount?amount=1&operator=%3E&skip=0&limit=1")
+      .get("/accounts/"+this.account.IBAN+"/transactions/byamount?amount="+this.amount+"&operator="+this.oprator+"&skip="+this.skip+"&limit="+this.limit+"")
       .then((res) => {
         this.transactions = res.data;
+        console.log(res.data)
       })
       .catch((error) => console.log(error));
     },
+
+   filtterByIban(){
+
+   }
   },
 
   mounted() {
@@ -115,18 +179,21 @@ export default {
       .get("/accounts/"+this.iban)
       .then((res) => {
         this.account = res.data;
-      })
-      .catch((error) => console.log(error));
-    
-    axios
-      .get("/accounts/"+this.iban+"/transactions?startDate=2022-04-03&endDate=2025-04-03&skip=0&limit=5")
+      axios
+      .get("/accounts/"+this.account.IBAN+"/transactions?startDate=2022-04-03&endDate=2025-04-03&skip=0&limit=20")
       .then((res) => {
         this.transactions = res.data;
       })
       .catch((error) => {
         this.errorMessage = error;
         console.log(error);
-      });
+      })
+
+      })
+      .catch((error) => console.log(error));
+    
+    
+      
   },
 };
 </script>
