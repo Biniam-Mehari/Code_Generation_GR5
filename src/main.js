@@ -9,6 +9,7 @@ import AccountTransactions from './components/transactions/AccountTransactions.v
 import Login from "./components/Login.vue";
 import UserPage from "./components/users/UserPage.vue";
 import EditUserDetails from "./components/users/EditUserDetails.vue";
+import CreateTransaction from "./components/transactions/CreateTransaction.vue"
 
 
 const routes = [
@@ -17,7 +18,8 @@ const routes = [
     { path: "/login", component: Login },
     { path: "/profile", component: UserPage },
     { path: "/accounttransaction/:iban", component: AccountTransactions, props: true },
-    { path: '/edituser/:id', component: EditUserDetails, props: true  }
+    { path: '/edituser/:id', component: EditUserDetails, props: true  },
+    { path: '/createtransaction', component: CreateTransaction },
 ];
 
 const router = createRouter({
