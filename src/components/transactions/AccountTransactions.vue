@@ -92,22 +92,8 @@
     <br>
     <label>{{ errorMessage }}</label>
     <br />
-    <table>
-      <tr>
-        <th>Datetime</th>
-        <th>From Account</th>
-        <th>Transfered To</th>
-        <th>Amount</th>
-        <th>Transaction Type</th>
-      </tr>
-      <tr :key="transaction.id" v-for="transaction in transactions">
-        <td>{{ transaction.timestamp }}</td>
-        <td>{{ transaction.fromAccount }}</td>
-        <td>{{ transaction.toAccount }}</td>
-        <td>{{ transaction.amount }}</td>
-        <td>{{ transaction.transactionType }}</td>
-      </tr>
-    </table>
+    
+ <transaction-list-table  :transactions="transactions"  />
 
     <div class="divider" />
       <button type="button" class="btn btn-success" @click="showMore()">
@@ -118,10 +104,14 @@
 
 <script>
 import axios from "../../axios-auth";
+ import transactionListTable from "./TransactionListTable.vue"; 
 export default {
   name: "Transactions",
     props: {
     iban: String,
+  },
+   components:{
+    transactionListTable
   },
   data() {
     return {

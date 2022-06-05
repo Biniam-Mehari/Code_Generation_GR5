@@ -6,7 +6,7 @@
         class="btn btn-primary"
         @click="this.$router.push('/createaccount')"
       >
-        create new account
+        Create Account
       </button>
       <div>
         <label>Total balance:</label>
@@ -21,11 +21,8 @@
         v-for="account in accounts"
         :key="account.accountType"
       >
-        <div class="ms-2 me-auto"  @click="showTransaction(account.IBAN)">
-          <div
-            class="fw-bold"
-           
-          >
+        <div class="ms-2 me-auto" @click="showTransaction(account.IBAN)">
+          <div class="fw-bold">
             {{ account.accountType }}
           </div>
           {{ account.IBAN }}
@@ -33,26 +30,24 @@
         <span class="badge bg-primary fs-5 w-auto p-3" style="width: 7rem"
           >{{ account.currency }} {{ account.currentBalance }}</span
         >
-  
       </li>
     </ol>
   </div>
 </template>
 
 <script>
-
 import axios from "../../axios-auth";
 export default {
   name: "AccountList",
- 
-   props: {
+
+  props: {
     iban: String,
   },
   data() {
     return {
-      accounts: [
-      ],
-
+      accounts: [],
+      user: [],
+     
       totalBalance: null,
     };
   },
@@ -61,19 +56,28 @@ export default {
     // getTransaction(iban) {
     //   this.$router.push("/accounttransaction/" + iban);
     // },
-    showTransaction(iban){
-     this.$router.push('/accounttransaction/' + iban)
-    }
+
+    showTransaction(iban) {
+      this.$router.push("/accounttransaction/" + iban);
+    },
   },
   mounted() {
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("token");
     axios
+      .get("/users/" + this.$store.state.loggedInUser.userId)
+      .then((res) => {
+        this.user = res.data;
+        // this.accounts.accountId = res.data.accountId;
+        console.log(res.data);
+      })
+      .catch((error) => console.log(error));
+    axios
       .get("/users/" + this.$store.state.loggedInUser.userId + "/accounts")
       .then((res) => {
         this.accounts = res.data;
-       // this.accounts.accountId = res.data.accountId;
-        console.log( res.data);
+        // this.accounts.accountId = res.data.accountId;
+        console.log(res.data);
       })
       .catch((error) => console.log(error));
 
@@ -81,7 +85,7 @@ export default {
       .get("/users/" + this.$store.state.loggedInUser.userId + "/totalBalance")
       .then((res) => {
         this.totalBalance = res.data.totalBalance;
-         console.log( res.data);
+        console.log(res.data);
       })
       .catch((error) => console.log(error));
   },
