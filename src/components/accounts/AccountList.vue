@@ -21,10 +21,10 @@
         v-for="account in accounts"
         :key="account.accountType"
       >
-        <div class="ms-2 me-auto">
+        <div class="ms-2 me-auto"  @click="showTransaction(account.IBAN)">
           <div
             class="fw-bold"
-            @click="showTransaction(account.IBAN)"
+           
           >
             {{ account.accountType }}
           </div>
