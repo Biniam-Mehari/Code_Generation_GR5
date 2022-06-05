@@ -53,27 +53,23 @@ const store = createStore({
       axios
         .get("/users/loggedInUser")
         .then((response) => {
-          console.log(response.data);
           commit("setLoggedInUser", response.data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    autoLogin({ commit }) {
-      let token = localStorage.getItem("token");
-
-      if (token) {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-        commit("setToken", {
-          token: token,
-        });
-      }
-      else {
-        // if not logged in go to login page
-        this.router.push("/login");
-      }
-    },
+    // autoLogin({ commit }) {
+    //   // if (localStorage.getItem("token")) {
+    //   //   axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
+    //   //   commit("setToken", {
+    //   //     token: localStorage.getItem("token"),
+    //   //   });
+    //   // } else {
+    //   //   // if not logged in go to login page
+    //   //   this.router.push("/login");
+    //   //}
+    // },
     logout({ commit }) {
       // set token in store to null
       commit("removeToken");

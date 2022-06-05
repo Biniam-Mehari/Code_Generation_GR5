@@ -14,7 +14,6 @@
                 type="text"
                 class="form-control"
                 v-model="username"
-                @change="showLog()"
               />
             </div>
             <div class="mb-3">

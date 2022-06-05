@@ -12,7 +12,7 @@
           >
         </li>
         <li class="nav-item">
-            <router-link to="/profile" class="nav-link" active-class="active"
+            <router-link v-if="this.$store.getters.isAuthenticated" to="/profile" class="nav-link" active-class="active"
               >Profile</router-link
             >
           </li>
@@ -24,11 +24,6 @@
           <li class="nav-item" v-if="this.$store.getters.isAuthenticated">
             <router-link to="/login" @click="this.$store.dispatch('logout')" class="nav-link"
               >Logout</router-link
-            >
-          </li>
-          <li v-if="this.$store.getters.isAuthenticated" class="nav-item">
-            <router-link to="/edituser/1" class="nav-link" active-class="active"
-              >Edit User</router-link
             >
           </li>
       </ul>
