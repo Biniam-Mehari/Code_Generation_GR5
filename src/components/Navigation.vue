@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0" >
         <li class="nav-item">
-          <router-link v-if="this.$store.getters.isAuthenticated" to="/" class="nav-link" active-class="active"
+          <router-link v-if="this.$store.getters.isAuthenticated" to="/accountlist" class="nav-link" active-class="active"
             >Accounts</router-link>
         </li>      
-        <li class="nav-item">
-          <router-link v-if="this.$store.getters.isAuthenticated" to="/createtransaction" class="nav-link" active-class="active"
+        <li class="nav-item" v-if="this.$store.getters.isAuthenticated">
+          <router-link  to="/createtransaction" class="nav-link" active-class="active"
             >Create Transactions</router-link
           >
         </li>
@@ -34,6 +34,13 @@
 <script>
 export default {
   name: "Navigation",
+   data() {
+    return {
+     
+
+      
+    };
+  },
 };
 </script>
 

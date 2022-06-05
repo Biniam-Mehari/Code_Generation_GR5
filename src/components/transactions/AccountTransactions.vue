@@ -156,8 +156,7 @@ export default {
     },
 
     filtterByAmount() {
-       axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("token");
+     
     axios
       .get("/accounts/"+this.account.IBAN+"/transactions/byamount?amount="+this.amount+"&operator="+this.oprator+"&skip="+this.skip+"&limit="+this.limit+"")
       .then((res) => {

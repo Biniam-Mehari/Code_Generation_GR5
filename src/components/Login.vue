@@ -71,7 +71,7 @@ export default {
         })
         .then(() => {
           this.$store.dispatch("setLogin");
-          this.$router.push("/");
+          this.$router.push("/profile");
         })
         .catch((error) => {
           this.errorMessage = "invalid username or password";
@@ -82,7 +82,7 @@ export default {
     register() {},
   },
   mounted() {
-    // nothing to do here
+    
   },
 };
 </script>

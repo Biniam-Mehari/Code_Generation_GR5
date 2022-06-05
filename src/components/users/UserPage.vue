@@ -14,16 +14,17 @@
       <div class="card-wrapper__details">
         <!-- First Fold -->
         <div class="card-wrapper__user-details">
-          <div v-if="this.$store.state.loggedInUser" class="text-center card-wrapper__user-name">
+          <div  class="text-center card-wrapper__user-name">
             {{ this.$store.state.loggedInUser.fullname }}
           </div>
-          <div v-if="this.$store.state.loggedInUser"
+          <div 
             class="
               text-center
               card-wrapper__designation card-wrapper__user-detail
             "
-          >
-            {{ this.$store.state.loggedInUser.roles }}
+              v-for="role in this.$store.state.loggedInUser.roles"
+        :key="role">
+            {{ role }}
           </div>
         </div>
         <!-- Second Fold -->
@@ -36,7 +37,7 @@
             "
           >
             <div class="card-wrapper__user-contact-info-label">Username</div>
-            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
+            <div  class="card-wrapper__user-contact-info-value">
               {{ this.$store.state.loggedInUser.username }}
             </div>
           </div>
@@ -48,7 +49,7 @@
             "
           >
             <div class="card-wrapper__user-contact-info-label">Day Limit</div>
-            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
+            <div  class="card-wrapper__user-contact-info-value">
               {{ this.$store.state.loggedInUser.dayLimit }}
             </div>
           </div>
@@ -61,7 +62,7 @@
             <div class="card-wrapper__user-contact-info-label">
               Transaction Limit
             </div>
-            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
+            <div  class="card-wrapper__user-contact-info-value">
               {{ this.$store.state.loggedInUser.transactionLimit }}
             </div>
           </div>
@@ -74,7 +75,7 @@
             <div class="card-wrapper__user-contact-info-label">
               Remaining Day Limit
             </div>
-            <div v-if="this.$store.state.loggedInUser" class="card-wrapper__user-contact-info-value">
+            <div  class="card-wrapper__user-contact-info-value">
               {{ this.$store.state.loggedInUser.remainingDayLimit }}
             </div>
           </div>

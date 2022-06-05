@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="this.$store.getters.isAuthenticated">
     <div class="position-relative">
       <button
         type="button"
@@ -33,20 +33,18 @@
         <span class="badge bg-primary fs-5 w-auto p-3" style="width: 7rem"
           >{{ account.currency }} {{ account.currentBalance }}</span
         >
-        <account-info :account="accounts" />
+  
       </li>
     </ol>
   </div>
 </template>
 
 <script>
-import AccountInfo from "./AccountList.vue";
+
 import axios from "../../axios-auth";
 export default {
   name: "AccountList",
-  components: {
-    AccountInfo,
-  },
+ 
    props: {
     iban: String,
   },

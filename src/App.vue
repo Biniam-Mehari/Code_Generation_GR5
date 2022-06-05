@@ -5,12 +5,14 @@
 
 <script>
 import navigation from './components/Navigation.vue'
+
 export default {
   name: 'App',
   components: {
     navigation
   },
   created() {
+   
     this.$store.dispatch('autologin');
   },
 }

@@ -13,7 +13,8 @@ import CreateTransaction from "./components/transactions/CreateTransaction.vue"
 
 
 const routes = [
-    { path: '/', component: AccountList },
+    { path: '/', component: UserPage },
+    { path: '/accountlist', component: AccountList },
     { path: '/createaccount', component: CreateAccount },
     { path: "/login", component: Login },
     { path: "/profile", component: UserPage },

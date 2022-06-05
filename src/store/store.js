@@ -21,9 +21,9 @@ const store = createStore({
     isAuthenticated(state) {
       return state.token != null;
     },
-    // isAdmin(state) {
-    //     return state.userType == 1;
-    // }
+    isAdmin(state) {
+      return state.loggedInUser.roles.include("ROLE_ADMIN");
+    }
   },
   mutations: {
     removeToken(state) {
