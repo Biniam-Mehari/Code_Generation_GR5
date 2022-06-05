@@ -43,7 +43,10 @@ const store = createStore({
     },
     logout(state) {
       state.jwt = null;
+      state.token = null;
       state.username = null;
+      axios.defaults.headers.common["Authorization"] = "";
+      localStorage.clear();
     },
   },
   actions: {

@@ -22,9 +22,7 @@
             >
           </li>
           <li class="nav-item" v-if="this.$store.getters.isAuthenticated">
-            <router-link to="/login" @click="this.$store.dispatch('logout')" class="nav-link"
-              >Logout</router-link
-            >
+            <button class="btn btn-info" @click="this.$store.dispatch('logout')">Logout</button>
           </li>
       </ul>
     </div>

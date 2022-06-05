@@ -1,5 +1,4 @@
 <template>
-<div v-if="this.$store.getters.isAdmin">You are admin</div>
   <!-- make a card with user object information -->
   <div v-if="this.$store.getters.isAuthenticated" class="container">
     <!-- User Details Card -->
@@ -97,13 +96,15 @@
   <div v-else class="container">
     <div class="alert alert-info">
       <h4>You are not logged in</h4>
-      <p>Please login to view your details.</p>
+        <p>Please click the button to login. </p>
+        <router-link to="/login">
+          <button type="button" class="btn btn-primary">Login here</button>
+        </router-link>
     </div>
   </div>
 </template>
 
 <script>
-//import axios from "../../axios-auth";
 export default {
   name: "Login",
   data() {
@@ -114,7 +115,18 @@ export default {
       this.$router.push("/edituser/" + id);
     },
   },
-  mounted() {},
+  created() {
+    // go to /login if not logged in
+    if (!this.$store.getters.isAuthenticated) {
+      this.$router.push("/login");
+    }
+  },
+  mounted() {
+    // go to /login if not logged in
+    if (!this.$store.getters.isAuthenticated) {
+      this.$router.push("/login");
+    }
+  },
 };
 </script>
 

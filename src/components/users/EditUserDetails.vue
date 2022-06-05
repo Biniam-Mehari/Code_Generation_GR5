@@ -1,16 +1,10 @@
 <template>
   <section>
-    <div class="container">
+    <div v-if="this.$store.getters.isAuthenticated" class="container">
       <form ref="form">
         <h2 class="mt-3 mt-lg-5">Edit a user</h2>
-        <h5 class="mb-4"></h5>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">Username</span>
-          <input type="text" class="form-control" v-model="changedUser.username" />
-        </div>
-
-        <div class="input-group mb-3">
+        <div v-if="!this.$store.getters.isAdmin || this.$store.state.loggedInUser.userId == this.id" class="input-group mb-3">
           <span class="input-group-text">Fullname</span>
           <input
             type="text"
@@ -19,7 +13,16 @@
           />
         </div>
 
-        <div class="input-group mb-3">
+        <div v-if="!this.$store.getters.isAdmin || this.$store.state.loggedInUser.userId == this.id" class="input-group mb-3">
+          <span class="input-group-text">Password</span>
+          <input
+            type="password"
+            class="form-control"
+            v-model="changedUser.password"
+          />
+        </div>
+
+        <div v-if="this.$store.getters.isAdmin" class="input-group mb-3">
           <span class="input-group-text">role</span>
           <select class="form-control">
             <option value="user">user</option>
@@ -27,7 +30,7 @@
           </select>
         </div>
 
-        <div class="input-group mb-3">
+        <div v-if="this.$store.getters.isAdmin" class="input-group mb-3">
           <span class="input-group-text">Day Limit</span>
           <input
             type="text"
@@ -36,7 +39,7 @@
           />
         </div>
 
-        <div class="input-group mb-3">
+        <div v-if="this.$store.getters.isAdmin" class="input-group mb-3">
           <span class="input-group-text">Transaction Limit</span>
           <input
             type="text"
@@ -45,27 +48,18 @@
           />
         </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">Remaining Day-Limit</span>
-          <input
-            type="text"
-            class="form-control"
-            v-model="changedUser.remainingDayLimit"
-          />
-        </div>
-
         <div class="input-group mt-4">
           <button type="button" class="btn btn-primary" @click="editUser">
             Save changes
           </button>
 
-          <button class="btn btn-danger" @click="deleteUser(changedUser.userId)">
+          <button v-if="this.$store.getters.isAdmin" class="btn btn-danger" @click="deleteUser(changedUser.userId)">
             Delete
           </button>
 
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-secondary"
             @click="this.$router.push('/profile')"
           >
             Cancel
@@ -73,6 +67,15 @@
         </div>
       </form>
     </div>
+    <div v-else class="container">
+    <div class="alert alert-info">
+      <h4>You are not logged in</h4>
+        <p>Please click the button to login. </p>
+        <router-link to="/login">
+          <button type="button" class="btn btn-primary">Login here</button>
+        </router-link>
+    </div>
+  </div>
   </section>
 </template>
 
@@ -85,8 +88,8 @@ export default {
       id: "",
       changedUser: {
         userId: 0,
-        username: "",
         fullname: "",
+        password: "",
         roles: [],
         dayLimit: 0.0,
         transactionLimit: 0.0,
@@ -126,7 +129,6 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.changedUser.userId = response.data.userId;
-        this.changedUser.username = response.data.username;
         this.changedUser.fullname = response.data.fullname;
         this.changedUser.roles = response.data.roles;
         this.changedUser.dayLimit = response.data.dayLimit;
