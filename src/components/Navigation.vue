@@ -7,7 +7,7 @@
             >Accounts</router-link>
         </li>      
         <li class="nav-item">
-          <router-link v-if="this.$store.getters.isAuthenticated" to="dc" class="nav-link" active-class="active"
+          <router-link v-if="this.$store.getters.isAuthenticated" to="/createtransaction" class="nav-link" active-class="active"
             >Create Transactions</router-link
           >
         </li>

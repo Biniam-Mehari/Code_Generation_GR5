@@ -6,70 +6,77 @@
 
         <div class="input-group mb-3">
           <span class="input-group-text">From account</span>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="fromAccount" />
         </div>
 
         <div class="input-group mb-3">
           <span class="input-group-text">To account</span>
-          <input type="number" class="form-control" />
+          <input type="text" class="form-control" v-model="toAccount"/>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Transaction Type:</span>
+           <select v-model="selectTransactionType">
+                <option v-for="type in transactionTypes" :key="type">{{ type }}</option>
+            </select>
         </div>
 
         <div class="input-group mb-3">
           <span class="input-group-text">Amount in €:</span>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="amount"/>
         </div>
+        
 
-          <input type="button" class="btn btn-primary" value="Transfer Funds"/>
-          <input type="button" class="btn btn-danger" value="Cancel" />
-          <input type="button" class="btn btn-info" value="List Transaction"/>
+          <input type="button" class="btn btn-primary" value="TransferFunds" @click="createTransaction()"/>
+          <input type="button" class="btn btn-danger" value="Cancel" @click="cancelTransaction()"/>
       </form>
+
+      <label>
+          {{ result }}
+      </label>
 
     </div>
   </section>
 </template>
 
 <script>
-// if cancel button pressed then clear the textareas and values
+import axios from "../../axios-auth"
 export default {
     name: 'AddTransactions',
     data() {
         return {
-            date: '',
             fromAccount: '',
             toAccount: '',
+            transactionTypes: ["withdraw", "deposit", "transfer"],
             amount: '',
-            accountType: ''  
+            selectTransactionType: null,
+            result: [] 
         }
     },
-    onSubmit(e) {
-        e.preventDefault()
+    methods: {
+        createTransaction() {
+          axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("token");
 
-        if(!this.date || !this.fromAccount
-        || !this.toAccount || !this.amount
-        || !this.accountType) {
-            alert('One of the field is empty!');
-            return
+          axios.post("/transactions", {fromAccount: this.fromAccount, toAccount: this.toAccount, amount: this.amount, transactionType: this.selectTransactionType})
+          .then((res) => {
+              this.result = res.data;
+            // this.accounts.accountId = res.data.accountId;
+              console.log(res.data);
+          })
+          .catch((error) => this.message=error.message)
+
+        },
+        cancelTransaction() {
+          axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("token");
+
+          this.fromAccount = '',
+          this.toAccount = '',
+          this.transactionTypes = '',
+          this.amount = '',
+          this.date = ''
         }
-
-        const newTransaction = {
-          date: this.date,
-          fromAccount: this.fromAccount,
-          toAccount: this.toAccount,
-          amount: this.amount,
-          accountType: this.accountType
-        }
-
-        this.$emit('add-transaction', newTransaction)
-    },
-
-    onCancel(e) {
-      e.preventDefault()
-
-      this.date = '',
-      this.fromAccount = '',
-      this.toAccount = '',
-      this.amount = '',
-      this.accountType = ''
     }
 
 }
