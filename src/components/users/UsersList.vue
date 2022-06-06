@@ -1,14 +1,17 @@
 <template>
-  <div v-if="this.$store.getters.isAuthenticated" class="container">
+  <div v-if="this.$store.getters.isAdmin" class="container">
     <!-- toggle that changes withoutAccount-->
-    <div class="form-group">
-      <label for="toggle">Without Account</label>
+    <!-- Default unchecked -->
+    <div class="custom-control custom-switch">
       <input
-        id="checkbox"
         type="checkbox"
-        class="form-control"
+        class="custom-control-input"
+        id="customSwitch1"
         @click="changeWithoutAccount"
       />
+      <label class="custom-control-label" for="customSwitch1"
+        >Without Account</label
+      >
     </div>
 
     <!-- table with all objects in users -->
@@ -106,18 +109,21 @@ export default {
       this.getUsers();
     },
     toPreviousPage() {
-      if(this.page > 0) {
+      if (this.page > 0) {
         this.page--;
         this.getUsers();
       }
     },
     changeWithoutAccount() {
       // if checkbox is checked, set withoutAccount to 1
-      if (document.getElementById("checkbox").checked) {
+      if (document.getElementById("customSwitch1").checked) {
         this.withoutAccount = 1;
+        this.getUsers();
+        //  
       } else {
         // if checkbox is unchecked, set withoutAccount to 0
         this.withoutAccount = 0;
+        this.getUsers();
       }
     },
     changePage(page) {
@@ -128,7 +134,17 @@ export default {
       this.$router.push("/edituser/" + id);
     },
     deleteUser(id) {
-      this.$router.push("/edituser/" + id);
+      axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+      axios
+        .delete("/users/" + id)
+        .then((response) => {
+          console.log(response);
+          this.getUsers();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     getUsers() {
       axios.defaults.headers.common["Authorization"] =
@@ -174,5 +190,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+button {
+  margin-left:5px;
+}
 </style>

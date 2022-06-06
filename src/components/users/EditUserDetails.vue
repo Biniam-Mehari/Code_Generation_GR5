@@ -24,7 +24,7 @@
 
         <div v-if="this.$store.getters.isAdmin" class="input-group mb-3">
           <span class="input-group-text">role</span>
-          <select class="form-control">
+          <select id="selectedRole" class="form-control">
             <option value="user">user</option>
             <option value="admin">admin</option>
           </select>
@@ -52,11 +52,6 @@
           <button type="button" class="btn btn-primary" @click="editUser">
             Save changes
           </button>
-
-          <button v-if="this.$store.getters.isAdmin" class="btn btn-danger" @click="deleteUser(changedUser.userId)">
-            Delete
-          </button>
-
           <button
             type="button"
             class="btn btn-secondary"
@@ -76,6 +71,8 @@
         </router-link>
     </div>
   </div>
+  <!-- button  -->
+
   </section>
 </template>
 
@@ -90,7 +87,7 @@ export default {
         userId: 0,
         fullname: "",
         password: "",
-        roles: [],
+        createEmployee: 0,
         dayLimit: 0.0,
         transactionLimit: 0.0,
         remainingDayLimit: 0.0,
@@ -99,25 +96,24 @@ export default {
   },
   methods: {
     editUser() {
-      //   axios
-      //     .put("/users/" + this.user.id, this.user)
-      //     .then((result) => {
-      //       console.log(result.data);
-      //       this.$refs.form.reset();
-      //       this.$router.push("/profile");
-      //     })
-      //     .catch((error) => console.log(error));
-    },
-    deleteUser(id) {
-      String(id);
-      //   axios
-      //     .delete("/products/" + id)
-      //     .then((result) => {
-      //       console.log(result);
-      //       this.$emit("update");
-      //     })
-      //     .catch((error) => console.log(error));
-      // use axios to delete the product
+      // if selectedRole selected value is user, set createEmployee to 1 else 0
+      if (document.getElementById("selectedRole").value == "admin") {
+        this.changedUser.createEmployee = 1;
+      } else {
+        this.changedUser.createEmployee = 0;
+      }
+
+      axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+      axios
+        .put("/users/" + this.id, this.changedUser)
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/users");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   created() {
@@ -130,7 +126,7 @@ export default {
         console.log(response.data);
         this.changedUser.userId = response.data.userId;
         this.changedUser.fullname = response.data.fullname;
-        this.changedUser.roles = response.data.roles;
+        //this.changedUser.roles = response.data.roles;
         this.changedUser.dayLimit = response.data.dayLimit;
         this.changedUser.transactionLimit = response.data.transactionLimit;
         this.changedUser.remainingDayLimit = response.data.remainingDayLimit;
