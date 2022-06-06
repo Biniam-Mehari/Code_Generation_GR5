@@ -42,7 +42,7 @@
         <th>edit</th>
       </tr>
       <tr v-for="account in accounts" :key="account.accountId">
-        <td>{{ account.IBAN }}</td>
+        <td @click="showTransaction(account.IBAN)">{{ account.IBAN }}</td>
         <td>{{ account.userId }}</td>
         <td>{{ account.accountType }}</td>
         <td>{{ account.absoluteLimit }}</td>

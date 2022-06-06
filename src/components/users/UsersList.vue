@@ -32,6 +32,14 @@
           <td>{{ user.transactionLimit }}</td>
           <td>
             
+         <button class="btn btn-info" @click="editUser(user.userId)">
+              Edit
+            </button>
+             <div class="divider" />
+            <button class="btn btn-danger" @click="deleteUser(user.userId)">
+              Delete
+            </button>
+      
           </td>
         </tr>
       </tbody>

@@ -23,12 +23,12 @@
     <form action="">
       <label>Start date: </label>
       <div class="divider" />
-      <input type="date" v-model="startDate" />
+      <input type="date" v-model="startdate" />
       <div class="divider" />
       <div class="divider" />
       <label>Start date: </label>
       <div class="divider" />
-      <input type="date" v-model="endDate"/>
+      <input type="date" v-model="enddate"/>
       <div class="divider" />
       <div class="divider" />
       <input type="text" v-model="skip" placeholder="skip"/>
@@ -129,7 +129,7 @@ export default {
       transactions: [],
       account: [],
       errorMessage: null,
-      enddate: Date.now.toString(),
+      enddate: Date.now.toString("yyyy-MM-dd"),
       startdate: Date.now.toString(),
       amount:0,
       operators: ['<','=','>'],
