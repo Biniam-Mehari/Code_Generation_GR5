@@ -6,9 +6,9 @@
           <router-link v-if="this.$store.getters.isAuthenticated" to="/accountlist" class="nav-link" active-class="active"
             >Accounts</router-link>
         </li>      
-        <li class="nav-item" v-if="this.$store.getters.isAuthenticated">
-          <router-link  to="/createtransaction" class="nav-link" active-class="active"
-            >Create Transactions</router-link
+        <li class="nav-item" v-if="this.$store.getters.isAuthenticated && this.$store.getters.isAdmin">
+          <router-link  to="/AllTransaction" class="nav-link" active-class="active"
+            >Transactions</router-link
           >
         </li>
         <li class="nav-item">

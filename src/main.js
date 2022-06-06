@@ -11,6 +11,7 @@ import UserPage from "./components/users/UserPage.vue";
 import UserList from "./components/users/UsersList.vue";
 import EditUserDetails from "./components/users/EditUserDetails.vue";
 import CreateTransaction from "./components/transactions/CreateTransaction.vue"
+import AllTransaction from "./components/transactions/AllTransactionList.vue"
 
 
 const routes = [
@@ -23,6 +24,7 @@ const routes = [
     { path: "/accounttransaction/:iban", component: AccountTransactions, props: true },
     { path: '/edituser/:id', component: EditUserDetails, props: true  },
     { path: '/createtransaction', component: CreateTransaction },
+    { path: '/AllTransaction', component: AllTransaction },
 ];
 
 const router = createRouter({

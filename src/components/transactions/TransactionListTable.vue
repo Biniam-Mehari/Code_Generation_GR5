@@ -7,6 +7,7 @@
         <th>Amount</th>
         <th>Transaction Type</th>
       </tr>
+      <br>
       <tr v-for="transaction in transactions" :key="transaction.timestamp">
         <td>{{ transaction.timestamp }}</td>
         <td>{{ transaction.fromAccount }}</td>

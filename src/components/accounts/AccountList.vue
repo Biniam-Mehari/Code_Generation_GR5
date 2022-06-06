@@ -5,17 +5,17 @@
         type="button"
         class="btn btn-primary"
         @click="this.$router.push('/createaccount')"
-      >
+      v-if="this.$store.getters.isAdmin">
         Create Account
       </button>
       <div>
-        <label>Total balance:</label>
+        <label v-if="!this.$store.getters.isAdmin" >Total balance:</label>
         <div class="divider" />
         <label>{{ totalBalance }}</label>
       </div>
     </div>
     <br />
-    <ol class="list-group list-group-numbered">
+    <ol class="list-group list-group-numbered" v-if="!this.$store.getters.isAdmin">
       <li
         class="list-group-item d-flex justify-content-between align-items-start"
         v-for="account in accounts"
@@ -30,8 +30,48 @@
         <span class="badge bg-primary fs-5 w-auto p-3" style="width: 7rem"
           >{{ account.currency }} {{ account.currentBalance }}</span
         >
+      
       </li>
     </ol>
+    <table v-if="this.$store.getters.isAdmin" class="table">
+      <tr>
+        <th>IBAN</th>
+        <th>User ID</th>
+        <th>Type</th>
+        <th>Absolute Limit</th>
+        <th>edit</th>
+      </tr>
+      <tr v-for="account in accounts" :key="account.accountId">
+        <td>{{ account.IBAN }}</td>
+        <td>{{ account.userId }}</td>
+        <td>{{ account.accountType }}</td>
+        <td>{{ account.absoluteLimit }}</td>
+        
+       <td> 
+         <button class="btn btn-info" @click="editUser(user.userId)">
+              Edit
+            </button>
+             <div class="divider" />
+            <button class="btn btn-danger" @click="deleteUser(user.userId)">
+              Delete
+            </button>
+      </td>
+        </tr>
+    </table>
+    <br>
+     <button type="button" class="btn btn-success" @click="showMore()">
+        Show more
+      </button>
+  </div>
+  <!-- v-else -->
+  <div v-else class="container">
+    <div class="alert alert-info">
+      <h4>You are not logged in</h4>
+        <p>Please click the button to login. </p>
+        <router-link to="/login">
+          <button type="button" class="btn btn-primary">Login here</button>
+        </router-link>
+    </div>
   </div>
 </template>
 
@@ -46,33 +86,36 @@ export default {
   data() {
     return {
       accounts: [],
-      user: [],
+      skip: 0,
+      limit: 2,
      
       totalBalance: null,
     };
   },
 
   methods: {
-    // getTransaction(iban) {
-    //   this.$router.push("/accounttransaction/" + iban);
-    // },
-
-    showTransaction(iban) {
-      this.$router.push("/accounttransaction/" + iban);
-    },
-  },
-  mounted() {
-    axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("token");
-    axios
-      .get("/users/" + this.$store.state.loggedInUser.userId)
+  
+    showMore(){
+      this.limit=this.limit+1
+       axios
+      .get("/accounts?skip="+this.skip+"&limit="+this.limit)
       .then((res) => {
-        this.user = res.data;
+      this.accounts = res.data;
         // this.accounts.accountId = res.data.accountId;
         console.log(res.data);
       })
       .catch((error) => console.log(error));
-    axios
+    },
+    showTransaction(iban) {
+      this.$router.push("/accounttransaction/" + iban);
+    },
+  
+  },
+  mounted() {
+    axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+   if (!this.$store.getters.isAdmin) {
+     axios
       .get("/users/" + this.$store.state.loggedInUser.userId + "/accounts")
       .then((res) => {
         this.accounts = res.data;
@@ -88,6 +131,19 @@ export default {
         console.log(res.data);
       })
       .catch((error) => console.log(error));
+   }
+   else{
+      axios
+      .get("/accounts?skip="+this.skip+"&limit="+this.limit)
+      .then((res) => {
+        this.accounts = res.data;
+        // this.accounts.accountId = res.data.accountId;
+        console.log(res.data);
+      })
+      .catch((error) => console.log(error));
+   }
+
+    
   },
 };
 </script>

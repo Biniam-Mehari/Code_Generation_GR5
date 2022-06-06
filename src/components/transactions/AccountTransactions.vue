@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-    <button type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/')">
+  <div class="container" v-if="this.$store.getters.isAuthenticated">
+    <button v-if="!this.$store.getters.isAdmin" type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/')">
         Create transaction
       </button>
+      
      <br> <br>
     <ol class="list-group list-group-numbered">
       <li
@@ -99,6 +100,16 @@
       <button type="button" class="btn btn-success" @click="showMore()">
         Show more
       </button>
+  </div>
+  <!-- v-else -->
+  <div v-else class="container">
+    <div class="alert alert-info">
+      <h4>You are not logged in</h4>
+        <p>Please click the button to login. </p>
+        <router-link to="/login">
+          <button type="button" class="btn btn-primary">Login here</button>
+        </router-link>
+    </div>
   </div>
 </template>
 

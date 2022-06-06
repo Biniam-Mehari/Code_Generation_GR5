@@ -1,6 +1,6 @@
 <template>
-    <section>
-    <div class="container">
+    <section v-if="this.$store.getters.isAuthenticated">
+    <div class="container" >
       <form ref="form">
         <h2 class="mt-3 mt-lg-5">Create a transaction</h2>
 
@@ -37,6 +37,16 @@
 
     </div>
   </section>
+  <!-- v-else -->
+  <div v-else class="container">
+    <div class="alert alert-info">
+      <h4>You are not logged in</h4>
+        <p>Please click the button to login. </p>
+        <router-link to="/login">
+          <button type="button" class="btn btn-primary">Login here</button>
+        </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -50,7 +60,7 @@ export default {
             transactionTypes: ["withdraw", "deposit", "transfer"],
             amount: '',
             selectTransactionType: null,
-            result: [] 
+            
         }
     },
     methods: {

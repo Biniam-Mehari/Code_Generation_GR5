@@ -31,12 +31,7 @@
           <td>{{ user.dayLimit }}</td>
           <td>{{ user.transactionLimit }}</td>
           <td>
-            <button class="btn btn-info" @click="editUser(user.userId)">
-              Edit
-            </button>
-            <button class="btn btn-danger" @click="deleteUser(user.userId)">
-              Delete
-            </button>
+            
           </td>
         </tr>
       </tbody>
