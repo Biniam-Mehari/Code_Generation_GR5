@@ -12,8 +12,7 @@ export default {
     navigation
   },
   created() {
-   
-    this.$store.dispatch('autologin');
+    //this.$store.dispatch('autologin');
   },
 }
 </script>
