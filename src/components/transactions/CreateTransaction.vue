@@ -3,6 +3,34 @@
     <div class="container">
       <form ref="form">
         <h2 class="mt-3 mt-lg-5">Create a transaction</h2>
+        <div v-if="!this.$store.getters.isAdmin">
+        <br />
+        <label>Choose transaction type to autofill your IBAN</label>
+        <br />
+        <button type="button" class="btn btn-primary" @click="fillibandeposit()">
+          Deposit
+        </button>
+        <div class="divider" />
+        <div class="divider" />
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="fillibanwithdraw()"
+        
+        >
+          withdraw
+        </button>
+        <div class="divider" />
+        <div class="divider" />
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="fillibantransafer()"
+        >
+          Transfer
+        </button>
+        </div>
+        <br /><br />
 
         <div class="input-group mb-3">
           <span class="input-group-text">From account</span>
@@ -41,32 +69,32 @@
           @click="cancelTransaction()"
         />
       </form>
-      <br><br>
-      <div><h5>{{message}}</h5>
+      <br /><br />
+      <div>
+        <h5>{{ message }}</h5>
         <label> From Account: </label>
         <div class="divider" />
-        <label>{{transaction.fromAccount}}</label>
-        <br>
+        <label>{{ transaction.fromAccount }}</label>
+        <br />
         <label> To Account: </label>
         <div class="divider" />
-        <label>{{transaction.toAccount}}</label>
-        <br>
+        <label>{{ transaction.toAccount }}</label>
+        <br />
         <label> User performing ID: </label>
         <div class="divider" />
-        <label>{{transaction.userPerformingId}}</label>
-        <br>
+        <label>{{ transaction.userPerformingId }}</label>
+        <br />
         <label> Transaction Type: </label>
         <div class="divider" />
-        <label>{{transaction.transactionType}}</label>
-        <br>
+        <label>{{ transaction.transactionType }}</label>
+        <br />
         <label> Amount: </label>
         <div class="divider" />
-        <label>{{transaction.amount}}</label>
-        <br>
+        <label>{{ transaction.amount }}</label>
+        <br />
         <label> Time: </label>
         <div class="divider" />
-        <label>{{transaction.timestamp}}</label>
-        
+        <label>{{ transaction.timestamp }}</label>
       </div>
     </div>
   </section>
@@ -86,6 +114,9 @@
 import axios from "../../axios-auth";
 export default {
   name: "AddTransactions",
+  props: {
+    iban: String,
+  },
   data() {
     return {
       fromAccount: "",
@@ -94,10 +125,25 @@ export default {
       amount: "",
       selectTransactionType: null,
       transaction: [],
-      message:"Result....",
+      message: "Result....",
     };
   },
   methods: {
+    fillibandeposit() {
+      this.toAccount = this.iban;
+      this.selectTransactionType = "deposit"
+      this.fromAccount =""
+    },
+    fillibanwithdraw() {
+      this.fromAccount = this.iban;
+      this.selectTransactionType = "withdraw"
+      this.toAccount = ""
+    },
+    fillibantransafer() {
+      this.fromAccount = this.iban;
+      this.selectTransactionType = "transfer"
+      this.toAccount = ""
+    },
     createTransaction() {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("token");
@@ -114,7 +160,7 @@ export default {
           this.message = "Successfull Transaction";
           console.log(res.data);
         })
-        .catch((error) => (this.message =" error.message"+error.res));
+        .catch((error) => (this.message=error.response.data.message));
     },
     cancelTransaction() {
       axios.defaults.headers.common["Authorization"] =
@@ -122,8 +168,8 @@ export default {
 
       (this.fromAccount = ""),
         (this.toAccount = ""),
-        (this.transactionTypes = ""),
         (this.amount = ""),
+        (this.message = ""),
         (this.date = "");
     },
   },

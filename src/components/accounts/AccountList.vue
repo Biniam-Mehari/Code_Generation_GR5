@@ -4,7 +4,7 @@
       <button
         type="button"
         class="btn btn-primary"
-        @click="this.$router.push('/createaccount')"
+        @click="addAccount(null)"
       v-if="this.$store.getters.isAdmin">
         Create Account
       </button>
@@ -46,13 +46,12 @@
         <td>{{ account.userId }}</td>
         <td>{{ account.accountType }}</td>
         <td>{{ account.absoluteLimit }}</td>
-        
        <td> 
-         <button class="btn btn-info" @click="editUser(user.userId)">
+         <button  @click="editAbsolutLimit(account.IBAN)">
               Edit
             </button>
              <div class="divider" />
-            <button class="btn btn-danger" @click="deleteUser(user.userId)">
+            <button  @click="deleteUser(user.userId)">
               Delete
             </button>
       </td>
@@ -82,14 +81,16 @@ export default {
 
   props: {
     iban: String,
+    id: Number
   },
   data() {
     return {
       accounts: [],
       skip: 0,
-      limit: 2,
+      limit: 10,
      
       totalBalance: null,
+      
     };
   },
 
@@ -108,6 +109,12 @@ export default {
     },
     showTransaction(iban) {
       this.$router.push("/accounttransaction/" + iban);
+    },
+     addAccount(id) {
+     this.$router.push('/createaccount/' + id);
+    },
+     editAbsolutLimit(iban) {
+     this.$router.push('/editabsolutLimit/' + iban);
     },
   
   },

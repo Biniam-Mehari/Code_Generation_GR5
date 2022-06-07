@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="this.$store.getters.isAuthenticated">
-    <button type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/')">
+    <button type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/'+ null)">
         Create transaction
       </button>
      <br> <br>

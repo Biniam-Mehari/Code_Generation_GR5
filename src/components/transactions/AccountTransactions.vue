@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="this.$store.getters.isAuthenticated">
-    <button v-if="!this.$store.getters.isAdmin" type="button" class="btn btn-success" @click="this.$router.push('/createTransaction/')">
+    <button v-if="!this.$store.getters.isAdmin" type="button" class="btn btn-success" @click="createtransaction(account.IBAN)">
         Create transaction
       </button>
       
@@ -167,9 +167,20 @@ export default {
       .catch((error) => console.log(error));
     },
 
-   filtterByIban(){
+    createtransaction(iban){
+    this.$router.push('/createTransaction/'+iban)
+    },
 
-   }
+   filtterByIban(){
+      axios
+      
+      .get("/accounts/"+this.ibanToFilter+"/transactions/filterByAccount?operator="+this.directionOfTransaction+"&skip="+this.skip+"&limit="+this.limit+"")
+      .then((res) => {
+        this.transactions = res.data;
+        console.log(res.data)
+      })
+      .catch((error) => console.log(error));
+   },
   },
 
   mounted() {
