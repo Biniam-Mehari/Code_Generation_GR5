@@ -126,7 +126,6 @@ export default {
         console.log(response.data);
         this.changedUser.userId = response.data.userId;
         this.changedUser.fullname = response.data.fullname;
-        //this.changedUser.roles = response.data.roles;
         this.changedUser.dayLimit = response.data.dayLimit;
         this.changedUser.transactionLimit = response.data.transactionLimit;
         this.changedUser.remainingDayLimit = response.data.remainingDayLimit;

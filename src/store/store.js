@@ -48,6 +48,9 @@ const store = createStore({
       axios.defaults.headers.common["Authorization"] = "";
       localStorage.clear();
     },
+    setErrorMessage(state, parameters) {
+      state.errorMessage = parameters.errorMessage;
+    }
   },
   actions: {
     setLogin({ commit }) {
@@ -101,6 +104,28 @@ const store = createStore({
           .catch((error) => reject(error));
       });
     },
+    register({ commit }, parameters) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post("/users", {
+            username: parameters.username,
+            fullname: parameters.fullname,
+            password: parameters.password,
+            createEmployee: parameters.createEmployee,
+          })
+          .then((result) => {
+            console.log(result);
+            commit("setErrorMessage", {
+              errorMessage: "",
+            });
+            resolve();
+          }
+          )
+          .catch((error) => reject(error));
+      });
+    }
+
+
   },
 });
 

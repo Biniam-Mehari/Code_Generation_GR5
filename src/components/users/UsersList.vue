@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.getters.isAdmin" class="container">
+  <div v-if="this.$store.getters.isAdmin && this.$store.getters.isAuthenticated" class="container">
     <!-- toggle that changes withoutAccount-->
     <!-- Default unchecked -->
     <div class="custom-control custom-switch">
@@ -34,15 +34,9 @@
           <td>{{ user.dayLimit }}</td>
           <td>{{ user.transactionLimit }}</td>
           <td>
-            
-         <button class="btn btn-info" @click="editUser(user.userId)">
+            <button class="btn btn-info" @click="editUser(user.userId)">
               Edit
             </button>
-             <div class="divider" />
-            <button class="btn btn-danger" @click="deleteUser(user.userId)">
-              Delete
-            </button>
-      
           </td>
         </tr>
       </tbody>
@@ -119,7 +113,7 @@ export default {
       if (document.getElementById("customSwitch1").checked) {
         this.withoutAccount = 1;
         this.getUsers();
-        //  
+        //
       } else {
         // if checkbox is unchecked, set withoutAccount to 0
         this.withoutAccount = 0;
@@ -135,7 +129,7 @@ export default {
     },
     deleteUser(id) {
       axios.defaults.headers.common["Authorization"] =
-      "Bearer " + localStorage.getItem("token");
+        "Bearer " + localStorage.getItem("token");
       axios
         .delete("/users/" + id)
         .then((response) => {
@@ -192,6 +186,6 @@ export default {
 
 <style scoped>
 button {
-  margin-left:5px;
+  margin-left: 5px;
 }
 </style>

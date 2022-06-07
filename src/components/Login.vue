@@ -33,13 +33,13 @@
               >
                 Login
               </button>
-              <button
+              <!-- <button
                 type="button"
                 @click="register()"
                 class="btn btn-outline-secondary"
               >
                 Register
-              </button>
+              </button> -->
             </div>
           </form>
         </div>
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-//import axios from "../axios-auth";
 export default {
   name: "Login",
   data() {
@@ -78,8 +77,6 @@ export default {
           console.log(error);
         });
     },
-    // register through a store action
-    register() {},
   },
   mounted() {
     

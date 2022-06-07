@@ -22,6 +22,11 @@
             >
           </li>
           <li class="nav-item">
+            <router-link v-if="this.$store.getters.isAuthenticated && this.$store.getters.isAdmin" to="/register" class="nav-link" active-class="active"
+              >Create Users</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link v-if="!this.$store.getters.isAuthenticated" to="/login" class="nav-link" active-class="active"
               >Login</router-link
             >
