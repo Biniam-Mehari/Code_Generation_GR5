@@ -1,5 +1,8 @@
 <template>
-  <div v-if="this.$store.getters.isAdmin && this.$store.getters.isAuthenticated" class="container">
+  <div
+    v-if="this.$store.getters.isAdmin && this.$store.getters.isAuthenticated"
+    class="container"
+  >
     <!-- toggle that changes withoutAccount-->
     <!-- Default unchecked -->
     <div class="custom-control custom-switch">
@@ -36,6 +39,13 @@
           <td>
             <button class="btn btn-info" @click="editUser(user.userId)">
               Edit
+            </button>
+            <button
+              class="btn btn-info"
+              v-if="user.withoutAccount == 1"
+              @click="createAccount(user.userId)"
+            >
+              Create Account
             </button>
           </td>
         </tr>
@@ -159,6 +169,10 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    createAccount(id) {
+      // redirect to create account page
+      this.$router.push("/createaccount/" + id);
     },
   },
   created() {
