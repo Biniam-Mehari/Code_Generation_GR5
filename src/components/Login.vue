@@ -33,13 +33,13 @@
               >
                 Login
               </button>
-              <!-- <button
+              <button
                 type="button"
                 @click="register()"
                 class="btn btn-outline-secondary"
               >
                 Register
-              </button> -->
+              </button>
             </div>
           </form>
         </div>
@@ -76,6 +76,9 @@ export default {
           this.errorMessage = "invalid username or password";
           console.log(error);
         });
+    },
+    register() {
+      this.$router.push("/register");
     },
   },
   mounted() {

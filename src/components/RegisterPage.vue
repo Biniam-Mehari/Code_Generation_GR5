@@ -1,6 +1,6 @@
 <template>
   <!-- fancy register form -->
-  <section v-if="this.$store.getters.isAdmin" class="container">
+  <section class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
         <h1>Register</h1>
@@ -69,15 +69,6 @@
       </div>
     </div>
   </section>
-  <div v-else class="container">
-    <div class="alert alert-info">
-      <h4>You are not logged in</h4>
-      <p>Please click the button to login.</p>
-      <router-link to="/login">
-        <button type="button" class="btn btn-primary">Login here</button>
-      </router-link>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -162,10 +153,6 @@ export default {
     },
   },
   created() {
-    // go to /login if not logged in
-    if (!this.$store.getters.isAuthenticated) {
-      this.$router.push("/login");
-    }
   },
 };
 </script>
