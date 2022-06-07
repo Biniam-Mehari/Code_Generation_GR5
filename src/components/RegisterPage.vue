@@ -144,10 +144,17 @@ export default {
           })
           .catch((error) => {
             // add error message to errorMessage using spread
-            this.errorMessage = [
-              ...this.errorMessage,
-              error.response.data.message,
-            ];
+            if (error.response.status === 403) {
+              this.errorMessage = [
+                ...this.errorMessage,
+                "User already exists",
+              ];
+            } else {
+              this.errorMessage = [
+                ...this.errorMessage,
+                "Failed to create user, please try again",
+              ];
+            }
           });
       }
     },

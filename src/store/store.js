@@ -107,7 +107,7 @@ const store = createStore({
     register({ commit }, parameters) {
       return new Promise((resolve, reject) => {
         axios
-          .post("/users", {
+          .post("/users/register", {
             username: parameters.username,
             fullname: parameters.fullname,
             password: parameters.password,
