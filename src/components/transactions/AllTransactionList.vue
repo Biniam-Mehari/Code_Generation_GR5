@@ -8,6 +8,7 @@
      <br> <br>
     <table>
       <tr>
+        <th>id</th>
         <th>Datetime</th>
         <th>From Account</th>
         <th>Transfered To</th>
@@ -15,7 +16,9 @@
         <th>Transaction Type</th>
       </tr>
       <br>
-      <tr v-for="transaction in transactions" :key="transaction.timestamp">
+      <tr v-for="transaction in transactions" :key="transaction.transactionId">
+
+        <td>{{ transaction.transactionId }}</td>
         <td>{{ transaction.timestamp }}</td>
         <td>{{ transaction.fromAccount }}</td>
         <td>{{ transaction.toAccount }}</td>
