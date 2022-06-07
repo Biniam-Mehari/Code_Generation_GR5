@@ -56,7 +56,7 @@
             />
           </div>
           <!-- select customer or employee -->
-          <div class="form-group">
+          <div v-if="this.$store.getters.isAdmin" class="form-group">
             <label for="userType">User Type</label>
             <select class="form-control" id="userType" v-model="this.userType">
               <option value="customer">customer</option>

@@ -40,9 +40,10 @@
             <button class="btn btn-info" @click="editUser(user.userId)">
               Edit
             </button>
+            <!-- create account button if withoutaccount is 1 -->
             <button
-              class="btn btn-info"
-              v-if="user.withoutAccount == 1"
+              v-if="this.withoutAccount == 1"
+              class="btn btn-success"
               @click="createAccount(user.userId)"
             >
               Create Account
