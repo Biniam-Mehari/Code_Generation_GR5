@@ -46,6 +46,7 @@ const store = createStore({
       state.token = null;
       state.username = null;
       axios.defaults.headers.common["Authorization"] = "";
+      state.loggedInUser.roles = [];
       localStorage.clear();
     },
     setErrorMessage(state, parameters) {

@@ -7,7 +7,9 @@
       <div class="card-wrapper__bg">
         <div class="card-wrapper__cover-bg"></div>
         <div class="card-wrapper__profile-pic">
-          <img src="https://i.pinimg.com/originals/d8/a0/1e/d8a01e34926bdb7eb9e1fb506d0aea1b.jpg" />
+          <img
+            src="https://i.pinimg.com/originals/d8/a0/1e/d8a01e34926bdb7eb9e1fb506d0aea1b.jpg"
+          />
         </div>
       </div>
       <!-- card details -->
@@ -96,19 +98,20 @@
   <div v-else class="container">
     <div class="alert alert-info">
       <h4>You are not logged in</h4>
-        <p>Please click the button to login. </p>
-        <router-link to="/login">
-          <button type="button" class="btn btn-primary">Login here</button>
-        </router-link>
+      <p>Please click the button to login.</p>
+      <router-link to="/login">
+        <button type="button" class="btn btn-primary">Login here</button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "UserPage",
   data() {
-    return {};
+    return {
+    };
   },
   methods: {
     editUser(id) {
@@ -120,12 +123,14 @@ export default {
     if (!this.$store.getters.isAuthenticated) {
       this.$router.push("/login");
     }
+    this.$store.dispatch("setLogin", this.$store.state.loggedInUser.userId);
   },
   mounted() {
     // go to /login if not logged in
     if (!this.$store.getters.isAuthenticated) {
       this.$router.push("/login");
     }
+    this.$store.dispatch("setLogin", this.$store.state.loggedInUser.userId);
   },
 };
 </script>

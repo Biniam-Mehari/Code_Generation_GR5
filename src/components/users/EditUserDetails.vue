@@ -97,19 +97,31 @@ export default {
   methods: {
     editUser() {
       // if selectedRole selected value is user, set createEmployee to 1 else 0
-      if (document.getElementById("selectedRole").value == "admin") {
-        this.changedUser.createEmployee = 1;
-      } else {
-        this.changedUser.createEmployee = 0;
+      // check if is authenticated and if user is admin
+      if (
+        this.$store.getters.isAuthenticated &&
+        this.$store.getters.isAdmin
+      ) {
+        if (document.getElementById("selectedRole").value == "user") {
+          this.changedUser.createEmployee = 1;
+        } else {
+          this.changedUser.createEmployee = 0;
+        }
       }
 
+      this.changedUser.userId = this.id;
       axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("token");
       axios
         .put("/users/" + this.id, this.changedUser)
         .then((response) => {
           console.log(response);
-          this.$router.push("/users");
+          if (this.$store.getters.isAdmin){
+            this.$router.push("/users");
+          } else {
+            this.$store.dispatch("setLogin", this.$store.state.loggedInUser.userId);
+            this.$router.push("/profile");
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -123,7 +135,7 @@ export default {
     axios
       .get("/users/" + this.id)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         this.changedUser.userId = response.data.userId;
         this.changedUser.fullname = response.data.fullname;
         this.changedUser.dayLimit = response.data.dayLimit;

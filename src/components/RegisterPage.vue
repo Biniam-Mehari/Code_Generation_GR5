@@ -110,10 +110,10 @@ export default {
         this.errorMessage = [...this.errorMessage, "fullname is required"];
         counter++;
       }
-      if (this.userType === "") {
-        this.errorMessage = [...this.errorMessage, "user type is required"];
-        counter++;
-      }
+      // if (this.userType != "customer"  this.userType != "employee") {
+      //   this.errorMessage = [...this.errorMessage, "user type is required"];
+      //   counter++;
+      // }
       if (counter > 0) {
         return false;
       } else {
@@ -145,10 +145,7 @@ export default {
           .catch((error) => {
             // add error message to errorMessage using spread
             if (error.response.status === 403) {
-              this.errorMessage = [
-                ...this.errorMessage,
-                "User already exists",
-              ];
+              this.errorMessage = [...this.errorMessage, "User already exists"];
             } else {
               this.errorMessage = [
                 ...this.errorMessage,
@@ -159,8 +156,7 @@ export default {
       }
     },
   },
-  created() {
-  },
+  created() {},
 };
 </script>
 
