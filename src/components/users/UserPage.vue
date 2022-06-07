@@ -7,7 +7,7 @@
       <div class="card-wrapper__bg">
         <div class="card-wrapper__cover-bg"></div>
         <div class="card-wrapper__profile-pic">
-          <img src="https://pickaface.net/assets/images/slides/slide4.png" />
+          <img src="https://i.pinimg.com/originals/d8/a0/1e/d8a01e34926bdb7eb9e1fb506d0aea1b.jpg" />
         </div>
       </div>
       <!-- card details -->
@@ -131,6 +131,11 @@ export default {
 </script>
 
 <style scoped>
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 80%;
+}
 h1 {
   text-align: center;
 }
