@@ -103,9 +103,9 @@ export default {
         this.$store.getters.isAdmin
       ) {
         if (document.getElementById("selectedRole").value == "user") {
-          this.changedUser.createEmployee = 1;
-        } else {
           this.changedUser.createEmployee = 0;
+        } else {
+          this.changedUser.createEmployee = 1;
         }
       }
 
