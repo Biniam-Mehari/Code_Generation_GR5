@@ -51,7 +51,7 @@
               Edit
             </button>
              <div class="divider" />
-            <button  @click="deleteUser(user.userId)">
+            <button  @click="deleteAccount(account.IBAN)">
               Delete
             </button>
       </td>
@@ -115,6 +115,17 @@ export default {
     },
      editAbsolutLimit(iban) {
      this.$router.push('/editabsolutLimit/' + iban);
+    },
+     deleteAccount(iban) {
+       axios.defaults.headers.common["Authorization"] =
+      "Bearer " + localStorage.getItem("token");
+       axios
+      .delete("/accounts/"+iban)
+      .then((res) => {
+        this.$router.push('/accountlist');
+        console.log(res.data);
+      })
+      .catch((error) => console.log(error));
     },
   
   },

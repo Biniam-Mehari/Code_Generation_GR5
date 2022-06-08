@@ -30,7 +30,7 @@
         </button>
 </div>
 </div>
-<label >{{message}}</label>
+<label > Result {{message}}</label>
 </template>
 
 <script>
@@ -52,7 +52,7 @@ export default {
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("token");
       axios
-        .post("/acccounts/"+ this.iban, {
+        .put("/acccounts/"+ this.iban, {
          absoluteLimit: this.absoluteLimit
         })
         .then((res) => {
