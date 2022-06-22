@@ -39,6 +39,7 @@
         <th>User ID</th>
         <th>Type</th>
         <th>Absolute Limit</th>
+         <th>Status</th>
         <th>edit</th>
       </tr>
       <tr v-for="account in accounts" :key="account.accountId">
@@ -46,6 +47,7 @@
         <td>{{ account.userId }}</td>
         <td>{{ account.accountType }}</td>
         <td>{{ account.absoluteLimit }}</td>
+        <td>{{ account.status }}</td>
        <td> 
          <button  @click="editAbsolutLimit(account.IBAN)">
               Edit
@@ -124,6 +126,8 @@ export default {
       .then((res) => {
         this.$router.push('/accountlist');
         console.log(res.data);
+      this.totalBalance= 67
+
       })
       .catch((error) => console.log(error));
     },

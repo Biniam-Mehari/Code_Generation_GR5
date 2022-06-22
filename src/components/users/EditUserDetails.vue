@@ -84,7 +84,7 @@ export default {
     return {
       id: "",
       changedUser: {
-        userId: 0,
+       // userId: 0,
         fullname: "",
         password: "",
         createEmployee: 0,
@@ -109,7 +109,7 @@ export default {
         }
       }
 
-      this.changedUser.userId = this.id;
+     // this.changedUser.userId = this.id;
       axios.defaults.headers.common["Authorization"] =
       "Bearer " + localStorage.getItem("token");
       axios
