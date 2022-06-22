@@ -84,9 +84,8 @@ export default {
     return {
       id: "",
       changedUser: {
-       // userId: 0,
-        fullname: "",
-        password: "",
+        fullname: null,
+        password: null,
         createEmployee: 0,
         dayLimit: 0.0,
         transactionLimit: 0.0,
