@@ -12,7 +12,7 @@ const store = createStore({
         roles: [],
         dayLimit: 0.0,
         transactionLimit: 0.0,
-        remainingDayLimit: 0.0,
+        // remainingDayLimit: 0.0,
       },
       errorMessage: "",
     };
@@ -39,7 +39,7 @@ const store = createStore({
       state.loggedInUser.roles = parameters.roles;
       state.loggedInUser.dayLimit = parameters.dayLimit;
       state.loggedInUser.transactionLimit = parameters.transactionLimit;
-      state.loggedInUser.remainingDayLimit = parameters.remainingDayLimit;
+      // state.loggedInUser.remainingDayLimit = parameters.remainingDayLimit;
     },
     logout(state) {
       state.jwt = null;

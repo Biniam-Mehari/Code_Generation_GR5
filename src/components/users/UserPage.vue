@@ -69,7 +69,7 @@
               {{ this.$store.state.loggedInUser.transactionLimit }}
             </div>
           </div>
-          <div
+          <!-- <div
             class="
               card-wrapper__user-contact-info
               card-wrapper__user-contact-info--email
@@ -81,7 +81,7 @@
             <div class="card-wrapper__user-contact-info-value">
               {{ this.$store.state.loggedInUser.remainingDayLimit }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- create edit button -->

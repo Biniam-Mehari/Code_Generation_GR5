@@ -90,7 +90,7 @@ export default {
         createEmployee: 0,
         dayLimit: 0.0,
         transactionLimit: 0.0,
-        remainingDayLimit: 0.0,
+        // remainingDayLimit: 0.0,
       },
     };
   },
@@ -140,7 +140,7 @@ export default {
         this.changedUser.fullname = response.data.fullname;
         this.changedUser.dayLimit = response.data.dayLimit;
         this.changedUser.transactionLimit = response.data.transactionLimit;
-        this.changedUser.remainingDayLimit = response.data.remainingDayLimit;
+        // this.changedUser.remainingDayLimit = response.data.remainingDayLimit;
       })
       .catch((error) => {
         console.log(error);
